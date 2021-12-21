@@ -29,6 +29,22 @@ nav {
 
 .nav-section {
   flex: 1;
+
+  ol,
+  ul,
+  dl {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.nav-section-flex-2 {
+  flex: 2;
+}
+
+.nav-section-flex-3 {
+  flex: 3;
+  text-align: center;
 }
 
 .flex-justify-right {
@@ -38,6 +54,6 @@ nav {
 
 .nav-wrapper {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   width: 100%;
 }

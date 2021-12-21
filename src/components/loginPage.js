@@ -1,5 +1,16 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../assets/context/authContext";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardSubtitle,
+  CardText,
+  CardTitle,
+  Input,
+  InputGroup,
+  InputGroupText,
+} from "reactstrap";
 
 function LoginPage() {
   let navigate = useNavigate();
@@ -26,15 +37,28 @@ function LoginPage() {
   }
 
   return (
-    <div>
-      <p>You must log in to view the page at {from}</p>
-
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username: <input name="username" type="text" />
-        </label>{" "}
-        <button type="submit">Login</button>
-      </form>
+    <div id="login-container">
+      <Card>
+        <CardBody>
+          <CardTitle tag="h3">Sign in</CardTitle>
+          <CardSubtitle className="mb-2 text-muted" tag="h6">
+            Please provide your username and password to sign in.
+          </CardSubtitle>
+          <form onSubmit={handleSubmit}>
+            <CardText>
+              <InputGroup>
+                <InputGroupText>Username</InputGroupText>
+                <Input name="username"></Input>
+              </InputGroup>
+              <InputGroup>
+                <InputGroupText>Password</InputGroupText>
+                <Input name="password"></Input>
+              </InputGroup>
+            </CardText>
+            <Button>Login</Button>
+          </form>
+        </CardBody>
+      </Card>
     </div>
   );
 }

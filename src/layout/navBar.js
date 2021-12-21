@@ -9,7 +9,7 @@ const NavigationBar = () => {
         <div className="nav-section">
           <span>Navigation bar</span>
         </div>
-        <div className="nav-section">
+        <div className="nav-section-flex-3">
           <ul>
             <li>
               <Link to="/">Public Page</Link>

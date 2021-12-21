@@ -6,11 +6,11 @@ function AuthStatus() {
   let navigate = useNavigate();
 
   if (!auth.user) {
-    return <p className="auth-status">You are not logged in.</p>;
+    return <span className="auth-status">You are not logged in.</span>;
   }
 
   return (
-    <p className="auth-status">
+    <span className="auth-status">
       Welcome {auth.user}!{" "}
       <button
         onClick={() => {
@@ -19,7 +19,7 @@ function AuthStatus() {
       >
         Sign out
       </button>
-    </p>
+    </span>
   );
 }
 
