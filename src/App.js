@@ -36,7 +36,11 @@ export default function App() {
 }
 
 function PublicPage() {
-  return <h3>Public</h3>;
+  return (
+    <div>
+      <h3>Public</h3>
+    </div>
+  );
 }
 
 function ProtectedPage() {
