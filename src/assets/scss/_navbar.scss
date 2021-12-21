@@ -1,10 +1,43 @@
-.navbar {
+nav {
   height: 5vh;
   min-height: 30px;
-  background-color: grey;
+  background-color: $light-color;
   width: 100%;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  align-content: center;
   position: fixed;
+
+  ul {
+    display: inline-flex;
+    list-style: none;
+
+    li {
+      margin: 0 5px;
+      padding: 5px 8px;
+      border-radius: 5px;
+      background-color: $light-color;
+
+      a:hover,
+      a:visited,
+      a:link {
+        font-style: normal;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.nav-section {
+  flex: 1;
+}
+
+.flex-justify-right {
+  justify-content: right;
+  display: flex;
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
