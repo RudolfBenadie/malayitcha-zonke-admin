@@ -6,13 +6,14 @@ import BaseLayout from "./layout/baseLayout";
 import AuthProvider from "./components/authProvider";
 import RequireAuth from "./components/requireAuth";
 import LoginPage from "./components/loginPage";
+import HomePage from "./views/homePage";
 
 export default function App() {
   return (
     <AuthProvider>
       <Routes key={"RouteBase"}>
         <Route element={<BaseLayout />}>
-          <Route path="/" element={<PublicPage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/protected"
@@ -33,14 +34,6 @@ export default function App() {
         </Route>
       </Routes>
     </AuthProvider>
-  );
-}
-
-function PublicPage() {
-  return (
-    <div>
-      <h3>Public</h3>
-    </div>
   );
 }
 

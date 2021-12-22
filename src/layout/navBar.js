@@ -12,7 +12,7 @@ const NavigationBar = () => {
         <div className="nav-section-flex-3">
           <ul>
             <li>
-              <Link to="/">Public Page</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
               <Link to="/protected">Protected Page</Link>
