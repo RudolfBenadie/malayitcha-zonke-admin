@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../assets/context/authContext";
+import { useAuth } from "../context/authContext";
 import {
   Button,
   Card,

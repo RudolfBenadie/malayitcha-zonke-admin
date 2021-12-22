@@ -1,5 +1,5 @@
 import React from "react";
-import { AuthContext } from "../assets/context/authContext";
+import { AuthContext } from "../context/authContext";
 import { fakeAuthProvider } from "../auth";
 
 function AuthProvider({ children }) {
