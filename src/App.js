@@ -6,31 +6,32 @@ import BaseLayout from "./layout/baseLayout";
 import AuthProvider from "./components/authProvider";
 import RequireAuth from "./components/requireAuth";
 import LoginPage from "./components/loginPage";
-import HomePage from "./views/homePage";
+import Dashboard from "./views/dashboard";
 
 export default function App() {
   return (
     <AuthProvider>
       <Routes key={"RouteBase"}>
         <Route element={<BaseLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/protected"
-            element={
-              <RequireAuth>
-                <ProtectedPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/protected2"
-            element={
-              <RequireAuth>
-                <ProtectedPage />
-              </RequireAuth>
-            }
-          />
+          <Route path="/" element={<Dashboard />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/protected"
+              element={
+                <RequireAuth>
+                  <ProtectedPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/protected2"
+              element={
+                <RequireAuth>
+                  <ProtectedPage />
+                </RequireAuth>
+              }
+            />
+          </Route>
         </Route>
       </Routes>
     </AuthProvider>

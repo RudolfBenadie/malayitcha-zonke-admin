@@ -7,7 +7,7 @@ const NavigationBar = () => {
     <Navbar>
       <div className="nav-wrapper">
         <div className="nav-section">
-          <span>Navigation bar</span>
+          <span>Malayitcha Zonke</span>
         </div>
         <div className="nav-section-flex-3">
           <ul>

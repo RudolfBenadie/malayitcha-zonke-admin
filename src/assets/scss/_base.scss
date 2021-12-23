@@ -5,6 +5,10 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+#root {
+  display: flex;
+}
+
 .dashboard {
   height: 93vh;
 }
@@ -13,4 +17,8 @@
   width: 100%;
   display: flex;
   justify-content: right;
+}
+
+#base-layout-container {
+  flex: 4;
 }

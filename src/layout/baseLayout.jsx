@@ -1,11 +1,10 @@
 import { Outlet } from "react-router-dom";
-import NavigationBar from "./navBar";
+import SideBar from "./sideBar";
 
 function BaseLayout() {
   return (
     <div id="base-layout-container">
-      <NavigationBar />
-      <div className="dashboard">
+      <div className="base-layout-outlet">
         <Outlet />
       </div>
     </div>

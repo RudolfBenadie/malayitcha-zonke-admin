@@ -1,22 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
+import { Outlet, Route, Routes } from "react-router-dom";
 
 // reactstrap components
-import {
-  Row,
-  Col
-} from "reactstrap";
+import NavigationBar from "../layout/navBar";
+import HomePage from "./homePage";
 
-class Dashboard extends Component {
-
-  render() {
-    return (
+const Dashboard = () => {
+  return (
+    <div>
+      <NavigationBar />
       <div className="view">
-        <Row>
-          <Col md="12" lg="12"></Col>
-        </Row>
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+        </Routes>
+        <Outlet />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Dashboard;
