@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import SideBar from "./sideBar";
 
 function BaseLayout() {
   return (
