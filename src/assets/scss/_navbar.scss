@@ -1,6 +1,6 @@
 nav {
   height: 7vh;
-  min-height: 30px;
+  min-height: 75px;
   background-color: $light-color;
   width: 100%;
   display: flex;
@@ -15,7 +15,7 @@ nav {
       margin: 0 5px;
       padding: 5px 8px;
       border-radius: 5px;
-      background-color: $light-color;
+      background-color: transparent;
 
       a:hover,
       a:visited,
