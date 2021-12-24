@@ -38,16 +38,16 @@ nav {
   }
 }
 
-.nav-section-flex-2 {
-  flex: 2;
-}
-
-.nav-section-flex-3 {
+.nav-menu {
   flex: 3;
   text-align: center;
 }
 
-.flex-justify-right {
+.nav-brand {
+  cursor: pointer;
+}
+
+.nav-authstatus {
   justify-content: right;
   display: flex;
 }
