@@ -18,10 +18,16 @@ const NavigationBar = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/protected">Protected Page</Link>
+              <Link to="/">Contact</Link>
             </li>
             <li>
-              <Link to="/protected2">Protected Page 2</Link>
+              <Link to="/protected">Goods</Link>
+            </li>
+            <li>
+              <Link to="/protected2">Passenger</Link>
+            </li>
+            <li>
+              <Link to="/">About</Link>
             </li>
           </ul>
         </div>
