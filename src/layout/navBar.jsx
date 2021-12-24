@@ -21,10 +21,10 @@ const NavigationBar = () => {
               <Link to="/">Contact</Link>
             </li>
             <li>
-              <Link to="/">Goods</Link>
+              <Link to="/">Trips</Link>
             </li>
             <li>
-              <Link to="/">Passenger</Link>
+              <Link to="/protected">Reservations</Link>
             </li>
             <li>
               <Link to="/">About</Link>
