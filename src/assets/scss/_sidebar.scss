@@ -1,3 +1,8 @@
+#sidebar-button {
+  position: absolute;
+  right: 0;
+}
+
 .logo-img > img {
   height: 25px;
 }
@@ -5,13 +10,15 @@
 .sidebar,
 .off-canvas-sidebar {
   position: fixed;
+  margin: 75px 0 0 0;
   top: 0;
   height: 100%;
+  min-height: 100%;
   bottom: 0;
-  width: 25vw;
+  width: $sidebar-panel-width;
   left: 0;
-  z-index: 9999;
   border-right: 1px solid $light-border;
+  background-color: $light-color;
 
   .sidebar-wrapper {
     position: relative;
@@ -82,17 +89,17 @@
     }
   }
 
-  &:before,
-  &:after {
-    display: block;
-    content: "";
-    opacity: 1;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-  }
+  // &:before,
+  // &:after {
+  //   display: block;
+  //   content: "";
+  //   opacity: 1;
+  //   position: absolute;
+  //   width: 100%;
+  //   height: 100%;
+  //   top: 0;
+  //   left: 0;
+  // }
 
   &[data-color="light"] {
     @include sidebar-background($light-color);
@@ -102,4 +109,13 @@
   &[data-color="dark"] {
     @include sidebar-background($dark-color);
   }
+}
+
+.panel-with-sidebar {
+  margin-left: $sidebar-panel-width;
+}
+
+.panel-without-sidebar {
+  width: 90%;
+  margin: 0 auto;
 }

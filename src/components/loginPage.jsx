@@ -45,7 +45,7 @@ function LoginPage() {
             Please provide your username and password to sign in.
           </CardSubtitle>
           <form onSubmit={handleSubmit}>
-            <CardText>
+            <div id="login-iput-content">
               <InputGroup>
                 <InputGroupText>Username</InputGroupText>
                 <Input name="username"></Input>
@@ -54,8 +54,8 @@ function LoginPage() {
                 <InputGroupText>Password</InputGroupText>
                 <Input name="password"></Input>
               </InputGroup>
-            </CardText>
-            <Button>Login</Button>
+              <Button id="login-button">Login</Button>
+            </div>
           </form>
         </CardBody>
       </Card>

@@ -7,6 +7,10 @@ import AuthProvider from "./components/authProvider";
 import RequireAuth from "./components/requireAuth";
 import LoginPage from "./components/loginPage";
 import Dashboard from "./views/dashboard";
+import ContactPage from "./views/contactPage";
+import TripsPage from "./views/tripsPage";
+import AboutPage from "./views/aboutPage";
+import ReservationsPage from "./views/reservationsPage";
 
 export default function App() {
   return (
@@ -15,11 +19,14 @@ export default function App() {
         <Route element={<BaseLayout />}>
           <Route path="/" element={<Dashboard />}>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/trips" element={<TripsPage />} />
             <Route
-              path="/protected"
+              path="/reservations"
               element={
                 <RequireAuth>
-                  <ProtectedPage />
+                  <ReservationsPage />
                 </RequireAuth>
               }
             />

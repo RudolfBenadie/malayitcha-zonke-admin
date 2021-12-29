@@ -27,6 +27,16 @@ nav {
   }
 }
 
+#login-button {
+  margin: 10px 0 0 0;
+}
+
+.navigation-bar {
+  position: fixed;
+  border-bottom: 1px solid $light-border;
+  z-index: 9999;
+}
+
 .nav-section {
   flex: 1;
 

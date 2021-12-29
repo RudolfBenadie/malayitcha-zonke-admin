@@ -99,7 +99,7 @@ const SideBar = (props) => {
       className="sidebar"
       data-color={props.bgColor || 'light'}
     >
-      <div className="sidebar-button">
+      <div id="sidebar-button">
         <span>=</span>
       </div>
       <div className="sidebar-nav">

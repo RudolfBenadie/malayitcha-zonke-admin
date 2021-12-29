@@ -20,16 +20,21 @@ a:hover {
   display: flex;
 }
 
-.dashboard {
-  height: 93vh;
+#base-layout-container {
+  flex: 4;
+}
+
+#base-layout-outlet {
+  position: relative;
+}
+
+#dashboard {
+  padding: 20px 0 0 0;
+  height: $main-panel-width;
 }
 
 .container-fluid {
   width: 100%;
   display: flex;
   justify-content: right;
-}
-
-#base-layout-container {
-  flex: 4;
 }

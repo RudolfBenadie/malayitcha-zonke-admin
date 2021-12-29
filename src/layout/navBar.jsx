@@ -6,7 +6,7 @@ import logo from '../assets/images/LogoTransparent50.png';
 const NavigationBar = () => {
   const navigate = useNavigate();
   return (
-    <Navbar>
+    <Navbar className="navigation-bar">
       <div className="nav-wrapper">
         <div className="nav-section nav-brand" onClick={() => navigate("/")}>
           <img src={logo} alt="Malayitcha logo - truck in motion" />
@@ -18,16 +18,16 @@ const NavigationBar = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/">Contact</Link>
+              <Link to="/about">About</Link>
             </li>
             <li>
-              <Link to="/">Trips</Link>
+              <Link to="/contact">Contact</Link>
             </li>
             <li>
-              <Link to="/protected">Reservations</Link>
+              <Link to="/trips">Trips</Link>
             </li>
             <li>
-              <Link to="/">About</Link>
+              <Link to="/reservations">Reservations</Link>
             </li>
           </ul>
         </div>
