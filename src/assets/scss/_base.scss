@@ -34,6 +34,10 @@ a:hover {
   min-height: calc(100vh - 300px);
 }
 
+.hidden {
+  display: none;
+}
+
 .container-fluid {
   width: 100%;
   display: flex;

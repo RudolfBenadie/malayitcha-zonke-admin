@@ -1,11 +1,17 @@
 import { Parallax } from "react-parallax";
-import { Nav } from "reactstrap";
 
 import image1 from '../assets/images/mak-BG0wHiGvfvY-unsplash.jpg';
 import image2 from '../assets/images/bruno-van-der-kraan-vm5gksHUQJw-unsplash.jpg';
 import image3 from '../assets/images/abdul-rohmad-zm0l_w1tyug-unsplash.jpg';
+import { useEffect } from "react";
 
 const HomePage = () => {
+
+  useEffect(() => {
+    const footer = document.getElementById('footer-container');
+    footer.classList.remove('hidden');
+  })
+
   return (
     <div className="panel-full-width">
       <Parallax bgImageStyle={{ bottom: -10 }} bgImage={image1} strength={500} >
@@ -18,7 +24,7 @@ const HomePage = () => {
           <div
             style={{
               position: 'absolute',
-              background: `rgba(45, 255, 125, ${percentage * 0.5})`,
+              background: `rgba(45, 255, 125, ${percentage * 1})`,
               left: '0%',
               top: '0%',
               width: '100%',
@@ -26,7 +32,7 @@ const HomePage = () => {
             }}
           />
         )} >
-        <div className="parallax-content pad20">
+        <div id="home-summary" className="parallax-content">
           <h1>Malayicha Zonke!</h1>
           <p style={{ padding: 50, fontSize: 20, fontStyle: "bold" }}>
             Do you have stuff to move, or have a vehicle for moving stuff, but have no idea where to start looking?  We connect local owner transporters to people in need of transport to move anything, anywhere.

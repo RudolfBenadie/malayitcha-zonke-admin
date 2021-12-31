@@ -5,6 +5,8 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import HomePage from "./homePage";
 
 const Dashboard = () => {
+
+
   return (
     <div id="dashboard">
       <div className="view">

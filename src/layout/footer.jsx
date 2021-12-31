@@ -1,4 +1,5 @@
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom'
+import { Nav, NavItem } from 'reactstrap';
 
 const Footer = () => {
   return (
@@ -8,7 +9,7 @@ const Footer = () => {
         <h5>Support</h5>
         <Nav vertical>
           <NavItem>
-            <NavLink href='/help'>Help</NavLink>
+            <Link to='/help'>Help</Link>
           </NavItem>
         </Nav>
       </div>
@@ -16,15 +17,20 @@ const Footer = () => {
         <h5>Company</h5>
         <Nav vertical>
           <NavItem>
-            <NavLink href='/contact'>Contact us</NavLink>
+            <Link to='/contact'>Contact us</Link>
           </NavItem>
           <NavItem>
-            <NavLink href='/about'>About us</NavLink>
+            <Link to='/about'>About us</Link>
           </NavItem>
         </Nav>
       </div>
       <div id="footer-legal" className='footer-section'>
         <h5>Legal</h5>
+        <Nav vertical>
+          <NavItem>
+            <Link to='/terms'>Terms and conditions</Link>
+          </NavItem>
+        </Nav>
       </div>
       <div className='footer-section'></div>
     </footer>

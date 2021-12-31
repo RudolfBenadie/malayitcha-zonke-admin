@@ -8,9 +8,9 @@ footer {
     font-weight: 600;
   }
 
-  .nav-link,
-  .nav-link:hover,
-  .nav-link:visited {
+  .nav-item > a,
+  .nav-item > a:hover,
+  .nav-item > a:visited {
     text-decoration: none;
     color: $steelblue-lighten-3;
   }

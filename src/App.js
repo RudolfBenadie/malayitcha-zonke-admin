@@ -12,6 +12,7 @@ import TripsPage from "./views/tripsPage";
 import AboutPage from "./views/aboutPage";
 import ReservationsPage from "./views/reservationsPage";
 import HelpPage from "./views/helpPage";
+import TermsPage from "./views/termsPage";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -43,6 +44,7 @@ export default function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/help" element={<HelpPage />} />
+            <Route path="/terms" element={<TermsPage />} />
             <Route path="/trips" element={<TripsPage />} />
             <Route
               path="/reservations"
