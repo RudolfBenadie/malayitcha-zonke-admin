@@ -11,6 +11,27 @@ import ContactPage from "./views/contactPage";
 import TripsPage from "./views/tripsPage";
 import AboutPage from "./views/aboutPage";
 import ReservationsPage from "./views/reservationsPage";
+import HelpPage from "./views/helpPage";
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import {
+  faTachometerAlt,
+  faSearch,
+  faCog,
+  faCheckSquare,
+  faCoffee,
+  faHome,
+} from "@fortawesome/free-solid-svg-icons";
+library.add(
+  fab,
+  faTachometerAlt,
+  faSearch,
+  faCog,
+  faCheckSquare,
+  faCoffee,
+  faHome
+);
 
 export default function App() {
   return (
@@ -21,6 +42,7 @@ export default function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/help" element={<HelpPage />} />
             <Route path="/trips" element={<TripsPage />} />
             <Route
               path="/reservations"

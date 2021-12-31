@@ -1,0 +1,22 @@
+footer {
+  display: flex;
+  min-height: 350px;
+  background-color: $steelblue-darken-1;
+
+  h5 {
+    color: $steelblue-lighten-3;
+    font-weight: 600;
+  }
+
+  .nav-link,
+  .nav-link:hover,
+  .nav-link:visited {
+    text-decoration: none;
+    color: $steelblue-lighten-3;
+  }
+}
+
+.footer-section {
+  flex: 1;
+  padding: 50px 20px 20px 50px;
+}

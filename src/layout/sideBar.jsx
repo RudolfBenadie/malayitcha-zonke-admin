@@ -5,6 +5,7 @@
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import PerfectScrollbar from "perfect-scrollbar";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
 import { Nav } from "reactstrap";
 
@@ -103,8 +104,13 @@ const SideBar = (props) => {
         <span>=</span>
       </div>
       <div className="sidebar-nav">
-        <Nav>
-          <NavLink to={'/'}>Test</NavLink>
+        <Nav vertical>
+          <NavLink to='/'>
+            <FontAwesomeIcon icon='home' /><span>Home</span>
+          </NavLink>
+          <NavLink to='/'>
+            <FontAwesomeIcon icon='coffee' /><span>Coffee</span>
+          </NavLink>
         </Nav>
       </div>
     </div>
