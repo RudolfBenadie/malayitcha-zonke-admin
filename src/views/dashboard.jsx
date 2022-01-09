@@ -6,7 +6,6 @@ import HomePage from "./homePage";
 
 const Dashboard = () => {
 
-
   return (
     <div id="dashboard">
       <div className="view">

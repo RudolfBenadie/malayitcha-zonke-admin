@@ -24,6 +24,7 @@ import {
   faCoffee,
   faHome,
 } from "@fortawesome/free-solid-svg-icons";
+
 library.add(
   fab,
   faTachometerAlt,
