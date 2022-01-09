@@ -23,16 +23,20 @@ import {
   faCheckSquare,
   faCoffee,
   faHome,
+  faEnvelope,
+  faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
   fab,
+  faEnvelope,
   faTachometerAlt,
   faSearch,
   faCog,
   faCheckSquare,
   faCoffee,
-  faHome
+  faHome,
+  faPhone
 );
 
 export default function App() {

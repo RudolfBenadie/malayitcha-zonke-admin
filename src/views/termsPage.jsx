@@ -8,7 +8,6 @@ const TermsPage = () => {
   })
   return (
     <div className='panel-without-sidebar'>
-      <h3>Help</h3>
       <h1>Malayicha Zonke</h1>
       <h3>Terms and Conditions</h3>
       <p>These terms and conditions explain the rights, obligations and responsibilities of all parties to this Agreement. Where we use the word ‘you’ or ‘your’, it means the customer. ‘We’, ‘us’ or ‘our’,

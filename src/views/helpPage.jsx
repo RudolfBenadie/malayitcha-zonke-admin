@@ -9,8 +9,11 @@ const HelpPage = () => {
 
   return (
     <div className='panel-without-sidebar'>
-      <h3>Help</h3>
+      <div id='help-wrapper'>
+        <div>We will add some content here soon.</div>
+      </div>
     </div>
+
   );
 };
 
