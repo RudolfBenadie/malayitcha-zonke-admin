@@ -1,3 +1,17 @@
+npx create-react-app@5.0.0 malayicha-zonke-admin
+
+npm i react-router-dom
+npm i sass sass-loader
+npm i react-redux
+npm i reactstrap
+npm i @fortawesome/fontawesome-svg-core @fortawesome/free-brands-svg-icons @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+npm install -g serve
+serve -s build
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,7 +82,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-npx create-react-app@5.0.0 malayicha-zonke-admin
-
-npm i react-router-dom
