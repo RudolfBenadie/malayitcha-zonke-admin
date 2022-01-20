@@ -1,18 +1,16 @@
 import { Outlet } from "react-router-dom";
-import Footer from "./footer";
-import NavigationBar from './navBar';
+import SiteFooter from "./siteFooter";
+import TopNavigation from "./topNavigation";
 
 function BaseLayout() {
   return (
-    <>
-      <div id="base-layout-container">
-        <NavigationBar />
-        <div id="base-layout-outlet">
-          <Outlet />
-        </div>
+    <div id="base-layout-container">
+      <TopNavigation />
+      <div id='base-layout-content'>
+        <Outlet />
       </div>
-      <Footer />
-    </>
+      <SiteFooter />
+    </div>
   );
 }
 

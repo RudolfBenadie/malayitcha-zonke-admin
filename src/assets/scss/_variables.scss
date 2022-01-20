@@ -22,6 +22,17 @@ $steelblue-lighten-3: lighten($steelblue, 27%);
 $steelblue-lighten-4: lighten($steelblue, 36%);
 $steelblue-lighten-5: lighten($steelblue, 45%);
 
+$cadetblue-darken-1: darken(cadetblue, 9%);
+$cadetblue-darken-2: darken(cadetblue, 18%);
+$cadetblue-darken-3: darken(cadetblue, 27%);
+$cadetblue-darken-4: darken(cadetblue, 36%);
+$cadetblue-darken-5: darken(cadetblue, 45%);
+$cadetblue-lighten-1: lighten(cadetblue, 9%);
+$cadetblue-lighten-2: lighten(cadetblue, 18%);
+$cadetblue-lighten-3: lighten(cadetblue, 27%);
+$cadetblue-lighten-4: lighten(cadetblue, 36%);
+$cadetblue-lighten-5: lighten(cadetblue, 45%);
+
 $light-border: #ddd !default;
 
 $default-color: $steelblue-darken-5;

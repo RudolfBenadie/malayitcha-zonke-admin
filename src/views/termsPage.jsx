@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+//import { useEffect } from "react";
 
 const TermsPage = () => {
 
-  useEffect(() => {
-    const footer = document.getElementById('footer-container');
-    footer.classList.remove('hidden');
-  })
+  // useEffect(() => {
+  //   const footer = document.getElementById('footer-container');
+  //   footer.classList.remove('hidden');
+  // })
+
   return (
     <div className='panel-without-sidebar'>
       <h1>Malayicha Zonke</h1>

@@ -1,95 +1,90 @@
-import { Parallax } from "react-parallax";
+import { useRef } from 'react'
+import { Parallax, ParallaxLayer } from '@react-spring/parallax'
 
 import image1 from '../assets/images/mak-BG0wHiGvfvY-unsplash.jpg';
 import image2 from '../assets/images/bruno-van-der-kraan-vm5gksHUQJw-unsplash.jpg';
 import image3 from '../assets/images/abdul-rohmad-zm0l_w1tyug-unsplash.jpg';
-import { useEffect } from "react";
 
 const HomePage = () => {
-
-  useEffect(() => {
-    const footer = document.getElementById('footer-container');
-    footer.classList.remove('hidden');
-  })
-
+  const parallax = useRef(null)
   return (
-    <div className="panel-full-width">
-      <Parallax bgImageStyle={{ bottom: -10 }} bgImage={image1} strength={500} >
-        <div className="parallax-content">
-          <div className="parallax-container text-glow">Moving anything, anywhere</div>
-        </div>
-      </Parallax>
-      <Parallax
-        renderLayer={percentage => (
-          <div
-            style={{
-              position: 'absolute',
-              background: `rgba(45, 255, 125, ${percentage * 1})`,
-              left: '0%',
-              top: '0%',
-              width: '100%',
-              height: '100%',
-            }}
-          />
-        )} >
-        <div id="home-summary" className="parallax-content">
-          <h1>Malayicha Zonke!</h1>
-          <p style={{ padding: 50, fontSize: 20, fontStyle: "bold" }}>
-            Do you have stuff to move, or have a vehicle for moving stuff, but have no idea where to start looking?  We connect local owner transporters to people in need of transport to move anything, anywhere.
-            Find and reserve trips that are available online.  If you are a transport provider, speak to us to set up a provider account and list your vehicle as available to move cargo.
-          </p>
-        </div>
-      </Parallax >
-      <Parallax bgImage={image2} strength={500} bgImageStyle={{ bottom: -100 }}>
-        <div className="parallax-content">
-          <div className="parallax-container text-glow">Let's make a move</div>
-        </div>
-      </Parallax>
-      <Parallax
-        bgImage={image3}
-        strength={-300}
-        // bgImageStyle={{ bottom: -100 }}
-        renderLayer={(percentage) => (
+    <div id='home-page'>
+      <Parallax id='parallax-container' ref={parallax} pages={4} style={{ top: '0', left: '0' }} innerStyle={{ height: 'max-content' }} >
+        <ParallaxLayer
+          id='parallax-layer-0'
+          className='parallax-layer'
+          offset={0}
+          speed={0}
+          onClick={() => parallax?.current?.scrollTo(1)}
+        >
+          <p><span class='bold-heading'>MZ - your partner in transport</span></p>
+        </ParallaxLayer>
+
+        <ParallaxLayer
+          id='parallax-layer-1'
+          className='parallax-layer'
+          offset={1}
+          speed={0}
+          factor={1.1}
+          onClick={() => parallax?.current?.scrollTo(2)}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'white',
+            backgroundColor: 'cornflowerblue',
+          }}>
+          <p>Scroll up</p>
+        </ParallaxLayer>
+
+        <ParallaxLayer
+          id='parallax-layer-2'
+          className='parallax-layer'
+          offset={2}
+          speed={1}
+          factor={0.5}
+          onClick={() => parallax?.current?.scrollTo(3)}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <div>
-            <div
-              style={{
-                position: "absolute",
-                background: `rgba(0, 125, 255, ${percentage * 1})`,
-                left: "50%",
-                top: "50%",
-                borderRadius: "50%",
-                transform: "translate(-50%,-50%)",
-                width: percentage * 500,
-                height: percentage * 500
-              }}
-            />
+            <img src={image2} alt='Truck driving in a valley' style={{ top: '-250px' }} />
           </div>
-        )}
-      >
-        <div className="parallax-content">
-          <div className="parallax-container">Try it right now!</div>
-        </div>
+        </ParallaxLayer>
+
+        <ParallaxLayer
+          id='parallax-layer-4'
+          className='parallax-layer'
+          offset={2.5}
+          speed={-0.5}
+          onClick={() => parallax?.current?.scrollTo(3)}
+          style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto', marginTop: 0, marginBottom: 0 }}
+        >
+          <p><span class='bold-heading'>Let's get you moving!</span></p>
+        </ParallaxLayer>
+
+        <ParallaxLayer
+          id='parallax-layer-3'
+          className='parallax-layer'
+          offset={3}
+          speed={0}
+          onClick={() => parallax?.current?.scrollTo(0)}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'white',
+            backgroundColor: 'greenyellow'
+          }}>
+          <p>Scroll up</p>
+        </ParallaxLayer>
+
       </Parallax>
-      {/* <Parallax
-        className="footer"
-        renderLayer={percentage => (
-          <div
-            style={{
-              position: 'absolute',
-              background: `rgba(0, 0, 0, ${percentage * 3})`,
-              left: '0%',
-              top: '0%',
-              width: '100%',
-              height: '100%',
-            }}
-          />
-        )} >
-        <div className="parallax-content pad20">
-          <Nav></Nav>
-        </div>
-      </Parallax> */}
-    </div >
-  );
-};
+    </div>
+  )
+}
 
 export default HomePage;

@@ -1,12 +1,11 @@
+import { Navbar } from 'reactstrap';
 import { Link, useNavigate } from "react-router-dom";
-import { Navbar } from "reactstrap";
-import AuthStatus from "../widgets/authStatus";
-import logo from '../assets/images/LogoTransparent50.png';
+import logo from '../assets/images/LogoTransparent50.png'
 
-const NavigationBar = () => {
+const TopNavigation = () => {
   const navigate = useNavigate();
   return (
-    <Navbar className="navigation-bar">
+    <Navbar id='top-navigation'>
       <div className="nav-wrapper">
         <div className="nav-section nav-brand" onClick={() => navigate("/")}>
           <img src={logo} alt="Malayitcha logo - truck in motion" />
@@ -26,11 +25,11 @@ const NavigationBar = () => {
           </ul>
         </div>
         <div className="nav-section nav-authstatus">
-          <AuthStatus />
+          {/* <AuthStatus /> */}
         </div>
       </div>
     </Navbar>
-  );
-};
+  )
+}
 
-export default NavigationBar;
+export default TopNavigation;

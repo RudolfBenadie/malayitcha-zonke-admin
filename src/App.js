@@ -1,18 +1,17 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "./assets/scss/main.scss";
-import * as React from "react";
-import { Routes, Route } from "react-router-dom";
-import BaseLayout from "./layout/baseLayout";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
 import AuthProvider from "./components/authProvider";
-import RequireAuth from "./components/requireAuth";
-import LoginPage from "./components/loginPage";
+import BaseLayout from "./layout/baseLayout";
+import PublicPages from "./views/publicPages";
 import Dashboard from "./views/dashboard";
-import ContactPage from "./views/contactPage";
-import TripsPage from "./views/tripsPage";
 import AboutPage from "./views/aboutPage";
+import HelpPage from "./views/aboutPage";
+import LoginPage from "./views/loginPage";
 import ReservationsPage from "./views/reservationsPage";
-import HelpPage from "./views/helpPage";
 import TermsPage from "./views/termsPage";
+import TripsPage from "./views/tripsPage";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -26,6 +25,8 @@ import {
   faEnvelope,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
+import ContactPage from "./views/contactPage";
+import HomePage from "./views/homePage";
 
 library.add(
   fab,
@@ -39,41 +40,28 @@ library.add(
   faPhone
 );
 
-export default function App() {
+function App() {
   return (
-    <AuthProvider>
-      <Routes key={"RouteBase"}>
-        <Route element={<BaseLayout />}>
-          <Route path="/" element={<Dashboard />}>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/help" element={<HelpPage />} />
-            <Route path="/terms" element={<TermsPage />} />
-            <Route path="/trips" element={<TripsPage />} />
-            <Route
-              path="/reservations"
-              element={
-                <RequireAuth>
-                  <ReservationsPage />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path="/protected2"
-              element={
-                <RequireAuth>
-                  <ProtectedPage />
-                </RequireAuth>
-              }
-            />
+    <div id="app">
+      <AuthProvider>
+        <Routes key="app-routes">
+          <Route element={<BaseLayout />}>
+            <Route element={<PublicPages />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/help" element={<HelpPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/reservations" element={<ReservationsPage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/trips" element={<TripsPage />} />
+            </Route>
+            <Route path="/dashboard" element={<Dashboard />} />
           </Route>
-        </Route>
-      </Routes>
-    </AuthProvider>
+        </Routes>
+      </AuthProvider>
+    </div>
   );
 }
 
-function ProtectedPage() {
-  return <h3>Protected</h3>;
-}
+export default App;

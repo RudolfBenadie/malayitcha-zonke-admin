@@ -1,13 +1,6 @@
-import { useEffect } from "react";
 import SideBar from "../layout/sideBar";
 
 const ReservationsPage = () => {
-
-  useEffect(() => {
-    const footer = document.getElementById('footer-container');
-    footer.classList.add('hidden');
-  })
-
   return (
     <>
       <SideBar />

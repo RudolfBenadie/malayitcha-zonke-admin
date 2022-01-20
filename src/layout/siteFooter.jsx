@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
 import { Nav, NavItem } from 'reactstrap';
 
-const Footer = () => {
+const SiteFooter = () => {
   return (
-    <footer id="footer-container">
+    <footer id='footer-wrapper'>
+      <div id='footer-toggle'>
+        <div id='left-block'></div>
+        <div id='right-block'></div>
+      </div>
       <div className='footer-section'></div>
       <div id="footer-support" className='footer-section'>
         <h5>Support</h5>
@@ -37,4 +41,4 @@ const Footer = () => {
   )
 }
 
-export default Footer;
+export default SiteFooter;

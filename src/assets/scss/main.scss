@@ -1,14 +1,11 @@
 @import "./mixins";
 @import "./variables";
 
-@import "./base";
-@import "./input";
-@import "./navbar";
-@import "./sidebar";
-@import "./footer";
-@import "./home";
-@import "./about";
+@import "./global";
+@import "./app";
+@import "./baseLayout";
+@import "./topNavigation";
+@import "./siteFooter";
+@import "./publicPages";
 @import "./contact";
-@import "./help";
-@import "./login";
-@import "./parallax";
+@import "./home";
