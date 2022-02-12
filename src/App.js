@@ -11,6 +11,7 @@ import AboutPage from './views/aboutPage';
 import HelpPage from './views/aboutPage';
 import LoginPage from './views/LoginPage';
 import ReservationsPage from './views/reservationsPage';
+import ResetPasswordPage from './views/ResetPasswordPage';
 import TermsPage from './views/termsPage';
 import TripsPage from './views/tripsPage';
 
@@ -53,6 +54,7 @@ function App() {
               <Route path='/contact' element={<ContactPage />} />
               <Route path='/help' element={<HelpPage />} />
               <Route path='/login' element={<LoginPage />} />
+              <Route path='/reset-password' element={<ResetPasswordPage />} />
               <Route
                 path='/reservations'
                 element={

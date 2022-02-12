@@ -16,21 +16,19 @@ function AuthProvider({ children }) {
     return auth.createUserWithEmailAndPassword(email, password);
   }
 
-  const signin = (newUser, callback) => {
-    return auth.signin(() => {
-      setUser(newUser);
-      callback();
-    });
+  const signin = (email, password) => {
+    return auth.signInWithEmailAndPassword(email, password)
   };
 
-  const signout = (callback) => {
-    return auth.signout(() => {
-      setUser(null);
-      callback();
-    });
+  const signout = () => {
+    return auth.signOut();
   };
 
-  let value = { user, signin, signout, signup };
+  const resetPassword = (email) => {
+    return auth.sendPasswordResetEmail(email);
+  }
+
+  let value = { user, signin, signout, signup, resetPassword };
 
   return <AuthContext.Provider value={value}>
     {!loading && children}

@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { Component, useRef, useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import {
   Button,
@@ -11,16 +11,23 @@ import {
   FormText,
   Container,
   Alert,
+  Collapse,
 } from "reactstrap";
 
 function LoginPage() {
   let navigate = useNavigate();
   let location = useLocation();
   let auth = useAuth();
-  const emailRef = useRef();
-  const passwordRef = useRef();
   const [error, setError] = useState('');
+  const [buttonText, setButtonText] = useState('Register');
   const [authBusy, setAuthBusy] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const emailRef = useRef(null);
+  const passwordRef = useRef();
+  const registerEmailRef = useRef();
+  const registerPasswordRef = useRef();
+  const verifyRegisterPasswordRef = useRef();
 
   let from = location.state?.from?.pathname || "/";
 
@@ -34,12 +41,6 @@ function LoginPage() {
       setError('');
       setAuthBusy(true);
       await auth.signin((email, password), () => {
-        // Send them back to the page they tried to visit when they were
-        // redirected to the login page. Use { replace: true } so we don't create
-        // another entry in the history stack for the login page.  This means that
-        // when they get to the protected page and click the back button, they
-        // won't end up back on the login page, which is also really nice for the
-        // user experience.
         navigate(from, { replace: true });
       });
     } catch (error) {
@@ -49,28 +50,95 @@ function LoginPage() {
     }
   }
 
+  async function handleRegisterSubmit(event) {
+    event.preventDefault();
+
+    const registerEmail = registerEmailRef.current.value;
+    const registerPassword = registerPasswordRef.current.value;
+    const verifyRegisterPassword = verifyRegisterPasswordRef.current.value;
+
+    if (registerPassword !== verifyRegisterPassword) {
+      return setError('The entered passwords do not match.');
+    }
+
+    try {
+      setError('');
+      setAuthBusy(true);
+      await auth.signup((registerEmail, registerPassword), () => {
+        navigate(from, { replace: true });
+      });
+    } catch (error) {
+      setError('Could not register user.');
+    } finally {
+      setAuthBusy(false);
+    }
+  }
+
+  async function registerButtonClick(event) {
+    event.preventDefault();
+    setOpen(!open);
+    setButtonText(buttonText === 'Register' ? 'Sign in' : 'Register');
+    setError('');
+  }
+
   return (
     <>
       <Container className='d-flex align-items-center justify-content-center' style={{ minHeight: "100vh" }}>
         <div className='w-100' style={{ maxWidth: "400px", marginBottom: "15%" }}>
-          <Card>
-            <CardBody>
-              <h5 className='text-center mb-4'><small>Please sign in with your email and password</small></h5>
-              {error && <Alert color='danger'>{error}</Alert>}
-              <Form onSubmit={handleSubmit}>
-                <FormGroup id='email'>
-                  <FormText>Email</FormText>
-                  <Input type='email' ref={emailRef} required></Input>
-                </FormGroup>
-                <FormGroup id='password'>
-                  <FormText>Password</FormText>
-                  <Input type='password' ref={passwordRef} required></Input>
-                </FormGroup>
-                <Button id="login-button" type='submit' className='w-100' disabled={authBusy} >Submit</Button>
-              </Form>
-            </CardBody>
-          </Card>
-          <div className='w-100 text-center mt-2'>Sign up</div>
+          <Collapse isOpen={!open}>
+            <Card>
+              <CardBody>
+                <h5 className='text-center mb-4'><small>Please sign in with your email and password</small></h5>
+                {error && <Alert color='danger'>{error}</Alert>}
+                <Form onSubmit={handleSubmit}>
+                  <FormGroup id='email'>
+                    <FormText>Email</FormText>
+                    <Input type='email' innerRef={emailRef} ></Input>
+                  </FormGroup>
+                  <FormGroup id='password'>
+                    <FormText>Password</FormText>
+                    <Input type='password' innerRef={passwordRef} required></Input>
+                  </FormGroup>
+                  <Button id="login-button" type='submit' className='w-100' disabled={authBusy} >Submit</Button>
+                </Form>
+                <div className='w-100 text-center mt-2'>
+                  <Link to='/reset-password'>Reset password</Link>
+                </div>
+              </CardBody>
+            </Card>
+          </Collapse>
+          <div className='w-100 text-center m-3'>
+            <Button
+              onClick={registerButtonClick}
+            >
+              {buttonText}
+            </Button>
+          </div>
+          <Collapse isOpen={open}>
+            <div id="example-collapse-text">
+              <Card>
+                <CardBody>
+                  <h5 className='text-center mb-4'><small>Please sign in with your email and password</small></h5>
+                  {error && <Alert color='danger'>{error}</Alert>}
+                  <Form onSubmit={handleRegisterSubmit}>
+                    <FormGroup id='email'>
+                      <FormText>Email</FormText>
+                      <Input type='email' innerRef={registerEmailRef} required></Input>
+                    </FormGroup>
+                    <FormGroup id='password'>
+                      <FormText>Password</FormText>
+                      <Input type='password' innerRef={registerPasswordRef} required></Input>
+                    </FormGroup>
+                    <FormGroup id='verify-password'>
+                      <FormText>Verify password</FormText>
+                      <Input type='password' innerRef={verifyRegisterPasswordRef} required></Input>
+                    </FormGroup>
+                    <Button id="register-button" type='submit' className='w-100' disabled={authBusy} >Submit</Button>
+                  </Form>
+                </CardBody>
+              </Card>
+            </div>
+          </Collapse>
         </div>
       </Container>
     </>
