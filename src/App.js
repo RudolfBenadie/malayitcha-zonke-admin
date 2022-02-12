@@ -1,20 +1,21 @@
-import "bootstrap/dist/css/bootstrap.css";
-import "./assets/scss/main.scss";
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
-import AuthProvider from "./components/authProvider";
-import BaseLayout from "./layout/baseLayout";
-import PublicPages from "./views/publicPages";
-import Dashboard from "./views/dashboard";
-import AboutPage from "./views/aboutPage";
-import HelpPage from "./views/aboutPage";
-import LoginPage from "./views/loginPage";
-import ReservationsPage from "./views/reservationsPage";
-import TermsPage from "./views/termsPage";
-import TripsPage from "./views/tripsPage";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/scss/main.scss';
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
+import AuthProvider from './components/authProvider';
+import RequireAuth from './components/RequireAuth';
+import BaseLayout from './layout/baseLayout';
+import PublicPages from './views/publicPages';
+import Dashboard from './views/dashboard';
+import AboutPage from './views/aboutPage';
+import HelpPage from './views/aboutPage';
+import LoginPage from './views/LoginPage';
+import ReservationsPage from './views/reservationsPage';
+import TermsPage from './views/termsPage';
+import TripsPage from './views/tripsPage';
 
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fab } from "@fortawesome/free-brands-svg-icons";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 import {
   faTachometerAlt,
   faSearch,
@@ -24,9 +25,9 @@ import {
   faHome,
   faEnvelope,
   faPhone,
-} from "@fortawesome/free-solid-svg-icons";
-import ContactPage from "./views/contactPage";
-import HomePage from "./views/homePage";
+} from '@fortawesome/free-solid-svg-icons';
+import ContactPage from './views/contactPage';
+import HomePage from './views/homePage';
 
 library.add(
   fab,
@@ -42,21 +43,28 @@ library.add(
 
 function App() {
   return (
-    <div id="app">
+    <div id='app'>
       <AuthProvider>
-        <Routes key="app-routes">
+        <Routes key='app-routes'>
           <Route element={<BaseLayout />}>
             <Route element={<PublicPages />}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/help" element={<HelpPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/reservations" element={<ReservationsPage />} />
-              <Route path="/terms" element={<TermsPage />} />
-              <Route path="/trips" element={<TripsPage />} />
+              <Route path='/' element={<HomePage />} />
+              <Route path='/about' element={<AboutPage />} />
+              <Route path='/contact' element={<ContactPage />} />
+              <Route path='/help' element={<HelpPage />} />
+              <Route path='/login' element={<LoginPage />} />
+              <Route
+                path='/reservations'
+                element={
+                  <RequireAuth>
+                    <ReservationsPage />
+                  </RequireAuth>
+                }
+              />
+              <Route path='/terms' element={<TermsPage />} />
+              <Route path='/trips' element={<TripsPage />} />
             </Route>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path='/dashboard' element={<Dashboard />} />
           </Route>
         </Routes>
       </AuthProvider>

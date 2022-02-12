@@ -1,27 +1,40 @@
-import React from "react";
-import { AuthContext } from "../context/authContext";
-import { fakeAuthProvider } from "../auth";
+import React, { useEffect, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { auth } from '../firebase';
 
 function AuthProvider({ children }) {
-  let [user, setUser] = React.useState(null);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
-  let signin = (newUser, callback) => {
-    return fakeAuthProvider.signin(() => {
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => setUser(user));
+    setLoading(false);
+    return unsubscribe;
+  }, [])
+
+  const signup = (email, password) => {
+    return auth.createUserWithEmailAndPassword(email, password);
+  }
+
+  const signin = (newUser, callback) => {
+    return auth.signin(() => {
       setUser(newUser);
       callback();
     });
   };
 
-  let signout = (callback) => {
-    return fakeAuthProvider.signout(() => {
+  const signout = (callback) => {
+    return auth.signout(() => {
       setUser(null);
       callback();
     });
   };
 
-  let value = { user, signin, signout };
+  let value = { user, signin, signout, signup };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>
+    {!loading && children}
+  </AuthContext.Provider>;
 }
 
 export default AuthProvider;
