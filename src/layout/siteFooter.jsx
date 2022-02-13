@@ -5,8 +5,7 @@ const SiteFooter = () => {
   return (
     <footer id='footer-wrapper'>
       <div id='footer-toggle'>
-        <div id='left-block'></div>
-        <div id='right-block'></div>
+        <div id='up-arrow'></div>
       </div>
       <div className='footer-section'></div>
       <div id="footer-support" className='footer-section'>

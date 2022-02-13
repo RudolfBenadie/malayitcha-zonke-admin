@@ -70,7 +70,6 @@ function LoginPage() {
         navigate(from, { replace: true });
       };
     } catch (error) {
-      debugger;
       switch (error.code) {
         case "auth/email-already-in-use":
           setError('A user with this email address already exists.  Click the link to reset your password if you have forgotten your login details.');
