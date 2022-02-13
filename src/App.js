@@ -29,6 +29,7 @@ import {
 import ContactPage from './views/contactPage';
 import HomePage from './views/homePage';
 import RequireAuth from './components/RequireAuth';
+import RealtimeDataProvider from './components/realtimeDataProvider';
 
 library.add(
   fab,
@@ -46,29 +47,31 @@ function App() {
   return (
     <div id='app'>
       <AuthProvider>
-        <Routes key='app-routes'>
-          <Route element={<BaseLayout />}>
-            <Route element={<PublicPages />}>
-              <Route path='/' element={<HomePage />} />
-              <Route path='/about' element={<AboutPage />} />
-              <Route path='/contact' element={<ContactPage />} />
-              <Route path='/help' element={<HelpPage />} />
-              <Route path='/login' element={<LoginPage />} />
-              <Route path='/reset-password' element={<ResetPasswordPage />} />
-              <Route
-                path='/reservations'
-                element={
-                  <RequireAuth>
-                    <ReservationsPage />
-                  </RequireAuth>
-                }
-              />
-              <Route path='/terms' element={<TermsPage />} />
-              <Route path='/trips' element={<TripsPage />} />
+        <RealtimeDataProvider>
+          <Routes key='app-routes'>
+            <Route element={<BaseLayout />}>
+              <Route element={<PublicPages />}>
+                <Route path='/' element={<HomePage />} />
+                <Route path='/about' element={<AboutPage />} />
+                <Route path='/contact' element={<ContactPage />} />
+                <Route path='/help' element={<HelpPage />} />
+                <Route path='/login' element={<LoginPage />} />
+                <Route path='/reset-password' element={<ResetPasswordPage />} />
+                <Route
+                  path='/reservations'
+                  element={
+                    <RequireAuth>
+                      <ReservationsPage />
+                    </RequireAuth>
+                  }
+                />
+                <Route path='/terms' element={<TermsPage />} />
+                <Route path='/trips' element={<TripsPage />} />
+              </Route>
+              <Route path='/dashboard' element={<Dashboard />} />
             </Route>
-            <Route path='/dashboard' element={<Dashboard />} />
-          </Route>
-        </Routes>
+          </Routes>
+        </RealtimeDataProvider>
       </AuthProvider>
     </div>
   );

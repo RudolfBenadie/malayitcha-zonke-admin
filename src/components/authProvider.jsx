@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from '../firebase';
+import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInAnonymously, onAuthStateChanged } from '../firebase';
 
 function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
@@ -22,6 +22,14 @@ function AuthProvider({ children }) {
     }
   }
 
+  const signinanonymous = (email, password) => {
+    try {
+      return signInAnonymously(auth)
+    } catch (error) {
+      console.log('Error while logging in user using email and password', error);
+    }
+  };
+
   const signin = (email, password) => {
     try {
       return signInWithEmailAndPassword(auth, email, password)
@@ -38,7 +46,7 @@ function AuthProvider({ children }) {
     return auth.sendPasswordResetEmail(email);
   }
 
-  let value = { loading, user, signin, signout, signup, resetPassword };
+  let value = { loading, user, signin, signout, signup, signinanonymous, resetPassword };
 
   return <AuthContext.Provider value={value}>
     {!loading && children}

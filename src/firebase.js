@@ -8,6 +8,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
+import { getDatabase } from 'firebase/database';
 
 const app = initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,6 +21,7 @@ const app = initializeApp({
 });
 
 const auth = getAuth();
+const database = getDatabase();
 export {
   auth,
   signInAnonymously,
@@ -28,5 +30,6 @@ export {
   signInWithPhoneNumber,
   signOut,
   onAuthStateChanged,
+  database,
 };
 export default app;
