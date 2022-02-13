@@ -31,7 +31,7 @@ const ResetPasswordPage = () => {
       await auth.resetPassword(email);
       setMessage('Check your inbox for further instruction,')
     } catch (error) {
-      setError('Failed to reset password.');
+      setMessage('Please check your mail box to reset your password.');
     } finally {
       setAuthBusy(false);
     }
@@ -53,12 +53,8 @@ const ResetPasswordPage = () => {
                 </FormGroup>
                 <Button id="reset-password-button" type='submit' className='w-100' disabled={authBusy} >Submit</Button>
               </Form>
-              <div className='w-100 text-center mt-2'>
-                <Link to='/login'>Sign in</Link>
-              </div>
             </CardBody>
           </Card>
-          <div className='w-100 text-center mt-2'>Sign up</div>
         </div>
       </Container>
     </>

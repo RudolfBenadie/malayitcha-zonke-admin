@@ -17,7 +17,7 @@ const HomePage = () => {
           speed={0}
           onClick={() => parallax?.current?.scrollTo(1)}
         >
-          <p><span class='bold-heading'>MZ - your partner in transport</span></p>
+          <p><span className='bold-heading'>MZ - your partner in transport</span></p>
         </ParallaxLayer>
 
         <ParallaxLayer
@@ -63,7 +63,7 @@ const HomePage = () => {
           onClick={() => parallax?.current?.scrollTo(3)}
           style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto', marginTop: 0, marginBottom: 0 }}
         >
-          <p><span class='bold-heading'>Let's get you moving!</span></p>
+          <p><span className='bold-heading'>Let's get you moving!</span></p>
         </ParallaxLayer>
 
         <ParallaxLayer
@@ -83,7 +83,7 @@ const HomePage = () => {
         </ParallaxLayer>
 
       </Parallax>
-    </div>
+    </div >
   )
 }
 

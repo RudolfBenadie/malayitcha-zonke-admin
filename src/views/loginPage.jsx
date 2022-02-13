@@ -1,4 +1,4 @@
-import React, { Component, useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import {
@@ -31,7 +31,7 @@ function LoginPage() {
 
   let from = location.state?.from?.pathname || "/";
 
-  async function handleSubmit(event) {
+  async function handleSignInWithEmailSubmit(event) {
     event.preventDefault();
 
     const email = emailRef.current.value;
@@ -40,9 +40,11 @@ function LoginPage() {
     try {
       setError('');
       setAuthBusy(true);
-      await auth.signin((email, password), () => {
+      debugger;
+      let signInResult = await auth.signin(email, password);
+      if (signInResult.user) {
         navigate(from, { replace: true });
-      });
+      };
     } catch (error) {
       setError('Could not log in.');
     } finally {
@@ -64,11 +66,19 @@ function LoginPage() {
     try {
       setError('');
       setAuthBusy(true);
-      await auth.signup((registerEmail, registerPassword), () => {
+      let signUpResult = await auth.signup(registerEmail, registerPassword);
+      if (signUpResult.user) {
         navigate(from, { replace: true });
-      });
+      };
     } catch (error) {
-      setError('Could not register user.');
+      debugger;
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          setError('A user with this email address already exists.  Click the link to reset your password if you have forgotten your login details.');
+          break;
+        default:
+          setError('Could not register user.');
+      }
     } finally {
       setAuthBusy(false);
     }
@@ -90,14 +100,14 @@ function LoginPage() {
               <CardBody>
                 <h5 className='text-center mb-4'><small>Please sign in with your email and password</small></h5>
                 {error && <Alert color='danger'>{error}</Alert>}
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSignInWithEmailSubmit}>
                   <FormGroup id='email'>
                     <FormText>Email</FormText>
                     <Input type='email' innerRef={emailRef} ></Input>
                   </FormGroup>
                   <FormGroup id='password'>
                     <FormText>Password</FormText>
-                    <Input type='password' innerRef={passwordRef} required></Input>
+                    <Input type='password' innerRef={passwordRef} ></Input>
                   </FormGroup>
                   <Button id="login-button" type='submit' className='w-100' disabled={authBusy} >Submit</Button>
                 </Form>
