@@ -1,6 +1,7 @@
 import { Navbar } from 'reactstrap';
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/images/LogoTransparent50.png'
+import AuthStatus from '../widgets/AuthStatus';
 
 const TopNavigation = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const TopNavigation = () => {
           </ul>
         </div>
         <div className="nav-section nav-authstatus">
-          {/* <AuthStatus /> */}
+          <AuthStatus />
         </div>
       </div>
     </Navbar>

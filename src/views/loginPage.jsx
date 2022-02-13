@@ -29,7 +29,7 @@ function LoginPage() {
   const registerPasswordRef = useRef();
   const verifyRegisterPasswordRef = useRef();
 
-  let from = location.state?.from?.pathname || "/";
+  let from = location.state?.path || "/";
 
   async function handleSignInWithEmailSubmit(event) {
     event.preventDefault();
@@ -40,7 +40,6 @@ function LoginPage() {
     try {
       setError('');
       setAuthBusy(true);
-      debugger;
       let signInResult = await auth.signin(email, password);
       if (signInResult.user) {
         navigate(from, { replace: true });
