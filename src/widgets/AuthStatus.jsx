@@ -17,8 +17,8 @@ function AuthStatus() {
   };
 
   function LoginItem() {
-    let auth = useAuth();
-    if (!auth.user) {
+    let { user, signout } = useAuth();
+    if (!user) {
       return (
         <DropdownItem onClick={() => navigate("/login")}>Sign in</DropdownItem>
       );
@@ -27,7 +27,7 @@ function AuthStatus() {
     return (
       <DropdownItem
         onClick={() => {
-          auth.signout(() => navigate("/"));
+          signout(() => navigate("/"));
         }}
       >
         Sign out
@@ -36,14 +36,14 @@ function AuthStatus() {
   }
 
   function LoginToggle() {
-    let auth = useAuth();
-    if (!auth.user) {
+    let { user } = useAuth();
+    if (!user) {
       return <DropdownToggle className="nav-profile-button">-</DropdownToggle>;
     }
 
     return (
       <DropdownToggle className="nav-profile-button">
-        {auth.user.isAnonymous ? '-' : auth.user.email.slice(0, 1).toLocaleUpperCase()}
+        {user.isAnonymous ? '-' : user.email.slice(0, 1).toLocaleUpperCase()}
       </DropdownToggle>
     );
   }
