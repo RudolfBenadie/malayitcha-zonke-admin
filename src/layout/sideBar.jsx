@@ -103,13 +103,13 @@ const SideBar = (props) => {
       <div className="sidebar-nav">
         <Nav vertical>
           <NavItem>
-            <NavLink to='/'>
+            <NavLink to='/dashboard/reservations'>
               <FontAwesomeIcon icon='truck' /><span>Reservations</span>
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to='/'>
-              <FontAwesomeIcon icon='truck-couch' /><span>Schedules</span>
+            <NavLink to='/dashboard/schedules'>
+              <FontAwesomeIcon icon='shipping-fast' /><span>Scheduled trips</span>
             </NavLink>
           </NavItem>
         </Nav>

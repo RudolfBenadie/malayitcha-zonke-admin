@@ -13,6 +13,7 @@ import LoginPage from './views/LoginPage';
 import ResetPasswordPage from './views/ResetPasswordPage';
 import TermsPage from './views/termsPage';
 import TripsPage from './views/tripsPage';
+import ReservationsPage from './views/reservationsPage';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -25,6 +26,7 @@ import {
   faHome,
   faEnvelope,
   faPhone,
+  faShippingFast,
   faTruck,
   faTruckMoving,
 } from '@fortawesome/free-solid-svg-icons';
@@ -44,6 +46,7 @@ library.add(
   faCoffee,
   faHome,
   faPhone,
+  faShippingFast,
   faTruck,
   faTruckMoving
 );
@@ -71,7 +74,20 @@ function App() {
                       <Dashboard />
                     </RequireAuth>
                   }
-                />
+                >
+                  <Route
+                    index
+                    element={<ReservationsPage heading='Reservations' />}
+                  />
+                  <Route
+                    path='/dashboard/reservations'
+                    element={<ReservationsPage heading='Reservations' />}
+                  />
+                  <Route
+                    path='/dashboard/schedules'
+                    element={<ReservationsPage heading='Scheduled trips' />}
+                  />
+                </Route>
               </Route>
             </Route>
           </Routes>

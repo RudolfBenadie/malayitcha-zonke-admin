@@ -1,10 +1,8 @@
-import SideBar from "../layout/sideBar";
-
-const ReservationsPage = () => {
+const ReservationsPage = ({ heading }) => {
   return (
     <>
       <div className="panel-with-sidebar">
-        <h3>Reservations</h3>
+        <h3>{heading}</h3>
       </div>
     </>
   );
