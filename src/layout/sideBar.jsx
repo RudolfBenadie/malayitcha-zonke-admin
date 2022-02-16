@@ -104,12 +104,12 @@ const SideBar = (props) => {
         <Nav vertical>
           <NavItem>
             <NavLink to='/'>
-              <FontAwesomeIcon icon='home' /><span>Home</span>
+              <FontAwesomeIcon icon='truck' /><span>Reservations</span>
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink to='/'>
-              <FontAwesomeIcon icon='coffee' /><span>Coffee</span>
+              <FontAwesomeIcon icon='truck-couch' /><span>Schedules</span>
             </NavLink>
           </NavItem>
         </Nav>

@@ -25,13 +25,17 @@ import {
   faHome,
   faEnvelope,
   faPhone,
+  faTruck,
+  faTruckMoving,
 } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 import ContactPage from './views/contactPage';
 import HomePage from './views/homePage';
 import RealtimeDataProvider from './components/realtimeDataProvider';
 
 library.add(
   fab,
+  far,
   faEnvelope,
   faTachometerAlt,
   faSearch,
@@ -39,7 +43,9 @@ library.add(
   faCheckSquare,
   faCoffee,
   faHome,
-  faPhone
+  faPhone,
+  faTruck,
+  faTruckMoving
 );
 
 function App() {
