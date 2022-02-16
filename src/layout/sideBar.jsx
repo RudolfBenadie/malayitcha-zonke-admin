@@ -7,7 +7,7 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
-import { Nav } from "reactstrap";
+import { Nav, NavItem } from "reactstrap";
 
 // var ps;
 
@@ -100,18 +100,22 @@ const SideBar = (props) => {
       className="sidebar"
       data-color={props.bgColor || 'light'}
     >
-      <div id="sidebar-button">
-        <span>=</span>
-      </div>
       <div className="sidebar-nav">
         <Nav vertical>
-          <NavLink to='/'>
-            <FontAwesomeIcon icon='home' /><span>Home</span>
-          </NavLink>
-          <NavLink to='/'>
-            <FontAwesomeIcon icon='coffee' /><span>Coffee</span>
-          </NavLink>
+          <NavItem>
+            <NavLink to='/'>
+              <FontAwesomeIcon icon='home' /><span>Home</span>
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to='/'>
+              <FontAwesomeIcon icon='coffee' /><span>Coffee</span>
+            </NavLink>
+          </NavItem>
         </Nav>
+      </div>
+      <div id="sidebar-button">
+        <div id='sidebar-arrow'></div>
       </div>
     </div>
   )

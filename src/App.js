@@ -3,13 +3,13 @@ import './assets/scss/main.scss';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import AuthProvider from './components/authProvider';
+import RequireAuth from './components/RequireAuth';
 import BaseLayout from './layout/baseLayout';
 import PublicPages from './views/publicPages';
 import Dashboard from './views/dashboard';
 import AboutPage from './views/aboutPage';
 import HelpPage from './views/aboutPage';
 import LoginPage from './views/LoginPage';
-import ReservationsPage from './views/reservationsPage';
 import ResetPasswordPage from './views/ResetPasswordPage';
 import TermsPage from './views/termsPage';
 import TripsPage from './views/tripsPage';
@@ -28,7 +28,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import ContactPage from './views/contactPage';
 import HomePage from './views/homePage';
-import RequireAuth from './components/RequireAuth';
 import RealtimeDataProvider from './components/realtimeDataProvider';
 
 library.add(
@@ -57,18 +56,17 @@ function App() {
                 <Route path='/help' element={<HelpPage />} />
                 <Route path='/login' element={<LoginPage />} />
                 <Route path='/reset-password' element={<ResetPasswordPage />} />
+                <Route path='/terms' element={<TermsPage />} />
+                <Route path='/trips' element={<TripsPage />} />
                 <Route
-                  path='/reservations'
+                  path='/dashboard'
                   element={
                     <RequireAuth>
-                      <ReservationsPage />
+                      <Dashboard />
                     </RequireAuth>
                   }
                 />
-                <Route path='/terms' element={<TermsPage />} />
-                <Route path='/trips' element={<TripsPage />} />
               </Route>
-              <Route path='/dashboard' element={<Dashboard />} />
             </Route>
           </Routes>
         </RealtimeDataProvider>

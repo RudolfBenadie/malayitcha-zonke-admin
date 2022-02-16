@@ -1,0 +1,45 @@
+#dashboard-container {
+  display: flex;
+}
+
+.sidebar {
+  flex: 1;
+  height: 100vh;
+  display: flex;
+}
+
+.panel-with-sidebar {
+  flex: 9;
+  padding-top: 5px;
+}
+
+#sidebar-button {
+  flex: 1;
+}
+
+#sidebar-arrow {
+  height: 0;
+  width: 0;
+  border: 10px solid transparent;
+  border-right: 0;
+  border-left: 10px solid $steelblue-lighten-4;
+  margin-top: 10px;
+}
+
+.sidebar-nav {
+  flex: 10;
+  background-color: $steelblue-lighten-4;
+  padding: 10px 20px;
+
+  .nav-item {
+    margin: 5px 0;
+
+    a {
+      text-decoration: none;
+
+      span {
+        margin-left: 5px;
+      }
+    }
+  }
+}
