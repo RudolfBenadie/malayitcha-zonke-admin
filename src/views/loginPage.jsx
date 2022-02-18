@@ -31,19 +31,19 @@ function LoginPage() {
 
   let from = location.state?.path || "/";
 
-  async function handleSignInWithEmailSubmit(event) {
+  function handleSignInWithEmailSubmit(event) {
     event.preventDefault();
-
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
     try {
       setError('');
       setAuthBusy(true);
-      let signInResult = await auth.signin(email, password);
-      if (signInResult.user) {
-        navigate(from, { replace: true });
-      };
+      auth.signin(email, password).then(signInResult => {
+        if (signInResult.user) {
+          navigate(from, { replace: true });
+        };
+      });
     } catch (error) {
       setError('Could not log in.');
     } finally {

@@ -43,7 +43,7 @@ function AuthStatus() {
 
     return (
       <DropdownToggle className="nav-profile-button">
-        {user.isAnonymous ? '-' : user.email.slice(0, 1).toLocaleUpperCase()}
+        {user?.extendedData?.displayName ? user.extendedData.displayName.slice(0, 1).toLocaleUpperCase() : '-'}
       </DropdownToggle>
     );
   }

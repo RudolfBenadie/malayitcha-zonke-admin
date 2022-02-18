@@ -19,7 +19,7 @@ function RealtimeDataProvider({ children }) {
     }
   }
 
-  let value = { loading, signup };
+  let value = { loading, database, signup };
 
   return <RealtimeDataContext.Provider value={value}>
     {!loading && children}

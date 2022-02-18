@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInAnonymously, onAuthStateChanged } from '../firebase';
+import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInAnonymously, onAuthStateChanged, database, ref, set, onValue } from '../firebase';
 
 function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
@@ -8,7 +8,47 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
-      setUser(user)
+      if (!user || !user.uid) {
+        setUser({
+          isAnonymous: true,
+          extendedData: {
+            name: '',
+            surname: '',
+            displayName: '-',
+            dob: '',
+            email: '',
+            claims: {
+              admin: false,
+              consumer: true,
+              provider: false
+            }
+          }
+        })
+      } else {
+        onValue(ref(database, '/users/' + user.uid), (snapshot) => {
+          let extendedData = {};
+          if (snapshot.size === 0) {
+            extendedData = {
+              name: '',
+              surname: '',
+              displayName: user.email.split('@')[0],
+              dob: '',
+              email: user.email,
+              claims: {
+                admin: false,
+                consumer: true,
+                provider: true
+              }
+            };
+            set(ref(database, 'users/' + user.uid), extendedData);
+          } else {
+            extendedData = snapshot.val();
+          }
+          setUser({ ...user, extendedData })
+        }, {
+          onlyOnce: true
+        });
+      }
     });
     setLoading(false);
     return unsubscribe;
