@@ -8,7 +8,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getDatabase, ref, set, onValue, get } from 'firebase/database';
+import { getDatabase, ref, set, push, onValue, get } from 'firebase/database';
 
 const app = initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -34,6 +34,7 @@ export {
   database,
   ref,
   get,
+  push,
   set,
   onValue,
 };

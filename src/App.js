@@ -4,15 +4,6 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import AuthProvider from './components/authProvider';
 import BaseLayout from './layout/baseLayout';
-import PublicPages from './views/publicPages';
-import Dashboard from './views/dashboard';
-import AboutPage from './views/aboutPage';
-import HelpPage from './views/aboutPage';
-import LoginPage from './views/LoginPage';
-import ResetPasswordPage from './views/ResetPasswordPage';
-import TermsPage from './views/termsPage';
-import TripsPage from './views/tripsPage';
-import ReservationsPage from './views/reservationsPage';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -34,6 +25,17 @@ import ContactPage from './views/contactPage';
 import HomePage from './views/homePage';
 import RealtimeDataProvider from './components/realtimeDataProvider';
 import RequireAuth from './components/RequireAuth';
+
+import PublicPages from './views/publicPages';
+import Dashboard from './views/dashboard';
+import AboutPage from './views/aboutPage';
+import HelpPage from './views/aboutPage';
+import LoginPage from './views/LoginPage';
+import ResetPasswordPage from './views/ResetPasswordPage';
+import TermsPage from './views/termsPage';
+import TripsPage from './views/tripsPage';
+import ReservationsPage from './views/reservationsPage';
+import VehiclesPage from './views/VehiclesPage';
 
 library.add(
   fab,
@@ -75,13 +77,14 @@ function App() {
                     </RequireAuth>
                   }
                 >
-                  <Route
-                    index
-                    element={<ReservationsPage heading='Reservations' />}
-                  />
+                  <Route index element={<VehiclesPage />} />
                   <Route
                     path='/dashboard/reservations'
                     element={<ReservationsPage heading='Reservations' />}
+                  />
+                  <Route
+                    path='/dashboard/vehicles'
+                    element={<VehiclesPage />}
                   />
                   <Route
                     path='/dashboard/schedules'

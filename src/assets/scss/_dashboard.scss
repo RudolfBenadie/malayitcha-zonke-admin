@@ -9,8 +9,15 @@
 }
 
 .panel-with-sidebar {
-  flex: 9;
+  flex: 7;
   padding-top: 5px;
+}
+
+.panel-without-sidebar {
+  height: 100%;
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 #sidebar-button {
@@ -39,6 +46,53 @@
 
       span {
         margin-left: 5px;
+      }
+    }
+  }
+}
+
+#add-vehicle-modal {
+  .modal-content {
+    transform: translateY(25vh);
+  }
+
+  .input-group {
+    margin: 10px 0;
+  }
+
+  .input-group > .form-control {
+    flex: 3;
+  }
+
+  .input-group-text {
+    flex: 1;
+  }
+}
+
+#vehicle-page-container {
+  margin: 10px 20px 20px 10px;
+  border: 1px solid #333;
+  box-shadow: 7px 7px 5px -5px black;
+  height: 80%;
+
+  #vehicle-table {
+    width: 100%;
+  }
+
+  #vehicle-form {
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid #888;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: row;
+
+    .input-group {
+      margin-right: 5px;
+      flex: 1;
+
+      .input-group-text {
+        font-size: smaller;
       }
     }
   }

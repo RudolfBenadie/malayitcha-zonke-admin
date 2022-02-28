@@ -21,7 +21,7 @@ const TopNavigation = () => {
               <Link to="/trips">Trips</Link>
             </li>
             <li>
-              <Link to="/dashboard">Reservations</Link>
+              <Link to="/dashboard">Admin</Link>
             </li>
           </ul>
         </div>

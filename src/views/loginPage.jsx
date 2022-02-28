@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useRef, useState, useEffect } from 'react';
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import {
   Button,
@@ -15,23 +15,28 @@ import {
 } from "reactstrap";
 
 function LoginPage() {
-  let navigate = useNavigate();
-  let location = useLocation();
-  let auth = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const auth = useAuth();
   const [error, setError] = useState('');
   const [buttonText, setButtonText] = useState('Register');
   const [authBusy, setAuthBusy] = useState(false);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const emailRef = useRef(null);
   const passwordRef = useRef();
   const registerEmailRef = useRef();
   const registerPasswordRef = useRef();
   const verifyRegisterPasswordRef = useRef();
+  let from = location.state?.from?.pathname || "/";
+  useEffect(() => {
+    setLoading(false);
+    if (auth.user && !loading) return <Navigate to={from} />
+  }, [auth, loading, from]);
 
-  let from = location.state?.path || "/";
 
-  function handleSignInWithEmailSubmit(event) {
+  const handleSignInWithEmailSubmit = async (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
@@ -39,13 +44,12 @@ function LoginPage() {
     try {
       setError('');
       setAuthBusy(true);
-      auth.signin(email, password).then(signInResult => {
-        if (signInResult.user) {
-          navigate(from, { replace: true });
-        };
-      });
+      const signInResult = await auth.signin(email, password);
+      if (signInResult.user) {
+        navigate('/');
+      };
     } catch (error) {
-      setError('Could not log in.');
+      console.log('An error occurred trying to log in.');
     } finally {
       setAuthBusy(false);
     }
