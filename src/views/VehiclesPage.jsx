@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useRef } from 'react';
 import { Button, Card, CardBody, CardHeader, Form, Input, InputGroup, InputGroupText, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap';
 import { useAuth } from '../context/AuthContext';
@@ -5,47 +6,12 @@ import { useRealtimeData } from '../context/RealtimeDataContext';
 
 const VehiclesPage = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [vehicle, setVehicle] = useState({});
   const { user } = useAuth();
   const realtimeData = useRealtimeData();
   const vehicleFormRef = useRef();
 
   const toggle = () => {
     setIsOpen(!isOpen);
-  }
-
-  const formDataChanged = (e) => {
-    e.preventDefault();
-    const name = e.target.name;
-    const value = e.target.name;
-    let newVehicle = {};
-    switch (name) {
-      case 'vehicle-owner-id':
-        newVehicle = { ...vehicle, ownerId: value };
-        setVehicle(newVehicle);
-        break;
-      case 'vehicle-make':
-        newVehicle = { ...vehicle, make: value };
-        setVehicle(newVehicle);
-        break;
-      case 'vehicle-model':
-        newVehicle = { ...vehicle, model: value };
-        setVehicle(newVehicle);
-        break;
-      case 'vehicle-registration':
-        newVehicle = { ...vehicle, registration: value };
-        setVehicle(newVehicle);
-        break;
-      case 'vehicle-capacity':
-        newVehicle = { ...vehicle, capacity: value };
-        setVehicle(newVehicle);
-        break;
-      case 'vehicle-location':
-        newVehicle = { ...vehicle, location: value };
-        setVehicle(newVehicle);
-        break;
-      default:
-    }
   }
 
   const validateVehicle = (vehicle) => {
@@ -73,6 +39,10 @@ const VehiclesPage = (props) => {
     }
   }
 
+  const deleteVehicle = (ownerId, vehicleRegistration) => {
+    realtimeData.deleteVehicle(ownerId, vehicleRegistration);
+  }
+
   return (
     <div className="panel-with-sidebar">
       <h3>Fleet vehicle maintenance</h3>
@@ -90,16 +60,10 @@ const VehiclesPage = (props) => {
                 <th>Registration</th>
                 <th>Capacity</th>
                 <th>Location</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              {/* <tr>
-                <td>Isuzu</td>
-                <td>D-Max</td>
-                <td>AAA999GP</td>
-                <td>8T</td>
-                <td>Germiston</td>
-              </tr> */}
               {
                 realtimeData.vehicles.map(vehicle =>
                   <tr>
@@ -108,6 +72,10 @@ const VehiclesPage = (props) => {
                     <td>{vehicle.registration}</td>
                     <td>{vehicle.capacity}</td>
                     <td>{vehicle.location}</td>
+                    <td style={{ textAlign: 'center' }}>
+                      <FontAwesomeIcon icon='pencil-alt' style={{ marginRight: '5px', cursor: 'pointer' }} />
+                      <FontAwesomeIcon icon='trash' style={{ color: 'red', marginRight: '5px', cursor: 'pointer' }} onClick={() => { deleteVehicle(vehicle.ownerId, vehicle.registration) }} />
+                    </td>
                   </tr>
                 )
               }
@@ -120,7 +88,7 @@ const VehiclesPage = (props) => {
         <Form id='vehicle-form' autoComplete='off' onSubmit={addVehicle} ref={vehicleFormRef}>
           <ModalBody>
             <InputGroup><InputGroupText>Owner ID</InputGroupText>
-              <select name='vehicle-owner-id' className='form-control' defaultValue={user.uid} onChange={formDataChanged}>
+              <select name='vehicle-owner-id' className='form-control' defaultValue={user.uid}>
                 <option value={user.uid}>{user.email}</option>
                 <option value='jkls45d7jaf9lfjdls123aj'>rjbenadie70@gmail.com</option>
               </select>

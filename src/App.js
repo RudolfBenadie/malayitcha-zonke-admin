@@ -15,8 +15,10 @@ import {
   faCoffee,
   faHome,
   faEnvelope,
+  faPencilAlt,
   faPhone,
   faShippingFast,
+  faTrash,
   faTruck,
   faTruckMoving,
 } from '@fortawesome/free-solid-svg-icons';
@@ -47,8 +49,10 @@ library.add(
   faCheckSquare,
   faCoffee,
   faHome,
+  faPencilAlt,
   faPhone,
   faShippingFast,
+  faTrash,
   faTruck,
   faTruckMoving
 );

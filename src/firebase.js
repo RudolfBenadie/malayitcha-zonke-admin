@@ -1,14 +1,21 @@
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
-  signInAnonymously,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPhoneNumber,
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getDatabase, ref, set, push, onValue, get } from 'firebase/database';
+import {
+  getDatabase,
+  ref,
+  set,
+  push,
+  onValue,
+  get,
+  remove,
+} from 'firebase/database';
 
 const app = initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -25,7 +32,6 @@ const auth = getAuth();
 const database = getDatabase();
 export {
   auth,
-  signInAnonymously,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPhoneNumber,
@@ -37,5 +43,6 @@ export {
   push,
   set,
   onValue,
+  remove,
 };
 export default app;

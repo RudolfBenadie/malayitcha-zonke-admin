@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RealtimeDataContext } from "../context/RealtimeDataContext";
-import { database, onValue, ref, set } from '../firebase';
+import { database, onValue, ref, set, remove } from '../firebase';
 
 function RealtimeDataProvider({ children }) {
   const [loading, setLoading] = useState(true);
@@ -28,7 +28,6 @@ function RealtimeDataProvider({ children }) {
 
   const addVehicle = async (data) => {
     try {
-      debugger;
       const ownerVehicleList = ref(database, `/users/${data.ownerId}/vehicles/${data.registration}`);
       set(ownerVehicleList, data.registration);
       const newVehicleReference = ref(database, `/vehicles/${data.registration}`);
@@ -39,7 +38,14 @@ function RealtimeDataProvider({ children }) {
     }
   }
 
-  let value = { loading, vehicles, database, addVehicle };
+  const deleteVehicle = async (ownerId, vehicleRegistration) => {
+    const vehicleReference = ref(database, `/vehicles/${vehicleRegistration}`);
+    const ownerVehicleReference = ref(database, `/users/${ownerId}/vehicles/${vehicleRegistration}`);
+    remove(ownerVehicleReference);
+    remove(vehicleReference);
+  }
+
+  let value = { loading, vehicles, database, addVehicle, deleteVehicle };
 
   return <RealtimeDataContext.Provider value={value}>
     {!loading && children}

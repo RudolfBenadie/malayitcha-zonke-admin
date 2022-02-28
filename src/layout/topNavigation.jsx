@@ -2,9 +2,23 @@ import { Navbar } from 'reactstrap';
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/images/LogoTransparent50.png'
 import AuthStatus from '../widgets/AuthStatus';
+import { useAuth } from "../context/AuthContext";
+
+const ProtectedLink = ({ isLoggedIn }) => {
+  if (isLoggedIn) {
+    return (
+      <li>
+        <Link to="/dashboard">Admin</Link>
+      </li>
+    )
+  } else {
+    return <></>
+  }
+}
 
 const TopNavigation = () => {
   const navigate = useNavigate();
+  const auth = useAuth();
   return (
     <Navbar id='top-navigation'>
       <div className="nav-wrapper">
@@ -20,9 +34,7 @@ const TopNavigation = () => {
             <li>
               <Link to="/trips">Trips</Link>
             </li>
-            <li>
-              <Link to="/dashboard">Admin</Link>
-            </li>
+            <ProtectedLink isLoggedIn={auth.user !== null && auth.user !== undefined} />
           </ul>
         </div>
         <div className="nav-section nav-authstatus">
