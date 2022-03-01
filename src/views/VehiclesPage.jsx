@@ -6,12 +6,19 @@ import { useRealtimeData } from '../context/RealtimeDataContext';
 
 const VehiclesPage = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [vehicleEditorIsOpen, setVehicleEditorIsOpen] = useState(false);
+  const [vehicleEditing, setVehicleEditing] = useState({});
   const { user } = useAuth();
   const realtimeData = useRealtimeData();
   const vehicleFormRef = useRef();
+  const vehicleEditFormRef = useRef();
 
   const toggle = () => {
     setIsOpen(!isOpen);
+  }
+
+  const toggleEditor = () => {
+    setVehicleEditorIsOpen(!vehicleEditorIsOpen);
   }
 
   const validateVehicle = (vehicle) => {
@@ -39,8 +46,32 @@ const VehiclesPage = (props) => {
     }
   }
 
-  const deleteVehicle = (ownerId, vehicleRegistration) => {
-    realtimeData.deleteVehicle(ownerId, vehicleRegistration);
+  const deleteVehicle = (vehicle) => {
+    realtimeData.deleteVehicle(vehicle.ownerId, vehicle.registration);
+  }
+
+  const editVehicle = (vehicle) => {
+    setVehicleEditing(vehicle);
+    setVehicleEditorIsOpen(true);
+  }
+
+  const updateVehicle = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const vehicleData = {
+      ownerId: data.get('vehicle-owner-id'),
+      make: data.get('vehicle-make'),
+      model: data.get('vehicle-model'),
+      registration: data.get('vehicle-registration'),
+      capacity: data.get('vehicle-capacity'),
+      location: data.get('vehicle-location'),
+    }
+    if (validateVehicle(vehicleData)) {
+      realtimeData.updateVehicle(vehicleData);
+      toggleEditor();
+    } else {
+      alert('Cannot update the vehicle.')
+    }
   }
 
   return (
@@ -73,8 +104,16 @@ const VehiclesPage = (props) => {
                     <td>{vehicle.capacity}</td>
                     <td>{vehicle.location}</td>
                     <td style={{ textAlign: 'center' }}>
-                      <FontAwesomeIcon icon='pencil-alt' style={{ marginRight: '5px', cursor: 'pointer' }} />
-                      <FontAwesomeIcon icon='trash' style={{ color: 'red', marginRight: '5px', cursor: 'pointer' }} onClick={() => { deleteVehicle(vehicle.ownerId, vehicle.registration) }} />
+                      <FontAwesomeIcon
+                        icon='pencil-alt'
+                        style={{ marginRight: '5px', cursor: 'pointer' }}
+                        onClick={() => { editVehicle(vehicle) }}
+                      />
+                      <FontAwesomeIcon
+                        icon='trash'
+                        style={{ color: 'red', marginRight: '5px', cursor: 'pointer' }}
+                        onClick={() => { deleteVehicle(vehicle) }}
+                      />
                     </td>
                   </tr>
                 )
@@ -83,6 +122,7 @@ const VehiclesPage = (props) => {
           </Table>
         </CardBody>
       </Card>
+
       <Modal id='add-vehicle-modal' isOpen={isOpen} toggle={toggle} className={props.className || ''}>
         <ModalHeader toggle={toggle}>Submit a vehicle:</ModalHeader>
         <Form id='vehicle-form' autoComplete='off' onSubmit={addVehicle} ref={vehicleFormRef}>
@@ -90,7 +130,6 @@ const VehiclesPage = (props) => {
             <InputGroup><InputGroupText>Owner ID</InputGroupText>
               <select name='vehicle-owner-id' className='form-control' defaultValue={user.uid}>
                 <option value={user.uid}>{user.email}</option>
-                <option value='jkls45d7jaf9lfjdls123aj'>rjbenadie70@gmail.com</option>
               </select>
             </InputGroup>
             <InputGroup><InputGroupText>Make</InputGroupText><Input name='vehicle-make' type='search'></Input></InputGroup>
@@ -102,6 +141,28 @@ const VehiclesPage = (props) => {
           <ModalFooter>
             <Button color="primary" type="submit">Save</Button>{' '}
             <Button color="secondary" onClick={toggle}>Cancel</Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
+
+      <Modal id='edit-vehicle-modal' isOpen={vehicleEditorIsOpen} toggle={toggleEditor} className={props.className || ''}>
+        <ModalHeader>Update a vehicle:</ModalHeader>
+        <Form id='vehicle-form' autoComplete='off' onSubmit={updateVehicle} ref={vehicleEditFormRef}>
+          <ModalBody>
+            <InputGroup><InputGroupText>Owner ID</InputGroupText>
+              <select name='vehicle-owner-id' className='form-control' defaultValue={vehicleEditing.ownerId} >
+                <option value={user.uid}>{user.email}</option>
+              </select>
+            </InputGroup>
+            <InputGroup><InputGroupText>Make</InputGroupText><Input name='vehicle-make' type='search' defaultValue={vehicleEditing.make}></Input></InputGroup>
+            <InputGroup><InputGroupText>Model</InputGroupText><Input name='vehicle-model' type='search' defaultValue={vehicleEditing.model}></Input></InputGroup>
+            <InputGroup><InputGroupText>Registration</InputGroupText><Input name='vehicle-registration' type='search' defaultValue={vehicleEditing.registration} readOnly></Input></InputGroup>
+            <InputGroup><InputGroupText>Capacity</InputGroupText><Input name='vehicle-capacity' type='search' defaultValue={vehicleEditing.capacity}></Input></InputGroup>
+            <InputGroup><InputGroupText>Location</InputGroupText><Input name='vehicle-location' type='search' defaultValue={vehicleEditing.location}></Input></InputGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" type="submit">Save</Button>{' '}
+            <Button color="secondary" onClick={toggleEditor}>Cancel</Button>
           </ModalFooter>
         </Form>
       </Modal>

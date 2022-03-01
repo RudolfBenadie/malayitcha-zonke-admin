@@ -38,6 +38,16 @@ function RealtimeDataProvider({ children }) {
     }
   }
 
+  const updateVehicle = async (data) => {
+    try {
+      const updateVehicleReference = ref(database, `/vehicles/${data.registration}`);
+      const result = await set(updateVehicleReference, data);
+      return result.key;
+    } catch (error) {
+      console.log('Error while updating a new vehicle', error);
+    }
+  }
+
   const deleteVehicle = async (ownerId, vehicleRegistration) => {
     const vehicleReference = ref(database, `/vehicles/${vehicleRegistration}`);
     const ownerVehicleReference = ref(database, `/users/${ownerId}/vehicles/${vehicleRegistration}`);
@@ -45,7 +55,7 @@ function RealtimeDataProvider({ children }) {
     remove(vehicleReference);
   }
 
-  let value = { loading, vehicles, database, addVehicle, deleteVehicle };
+  let value = { loading, vehicles, database, addVehicle, deleteVehicle, updateVehicle };
 
   return <RealtimeDataContext.Provider value={value}>
     {!loading && children}
