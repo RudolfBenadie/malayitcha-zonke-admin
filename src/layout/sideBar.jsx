@@ -107,6 +107,11 @@ const SideBar = (props) => {
               <FontAwesomeIcon icon='truck' /><span>Vehicles</span>
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink to='/dashboard/users'>
+              <FontAwesomeIcon icon='users' /><span>Users</span>
+            </NavLink>
+          </NavItem>
           {/* <NavItem>
             <NavLink to='/dashboard/reservations'>
               <FontAwesomeIcon icon='truck' /><span>Reservations</span>

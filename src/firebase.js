@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+// import admin from 'firebase-admin';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -16,6 +17,7 @@ import {
   get,
   remove,
 } from 'firebase/database';
+import serviceAccount from './malayicha-zonke-service-account.json';
 
 const app = initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -28,7 +30,13 @@ const app = initializeApp({
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 });
 
+// const adminApp = admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE,
+// });
+
 const auth = getAuth();
+debugger;
 const database = getDatabase();
 export {
   auth,
@@ -44,5 +52,7 @@ export {
   set,
   onValue,
   remove,
+  // adminApp,
 };
+
 export default app;

@@ -21,6 +21,7 @@ import {
   faTrash,
   faTruck,
   faTruckMoving,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import ContactPage from './views/contactPage';
@@ -38,6 +39,7 @@ import TermsPage from './views/termsPage';
 import TripsPage from './views/tripsPage';
 import ReservationsPage from './views/reservationsPage';
 import VehiclesPage from './views/VehiclesPage';
+import UserAdminPage from './views/UserAdminPage';
 
 library.add(
   fab,
@@ -54,7 +56,8 @@ library.add(
   faShippingFast,
   faTrash,
   faTruck,
-  faTruckMoving
+  faTruckMoving,
+  faUsers
 );
 
 function App() {
@@ -90,6 +93,7 @@ function App() {
                     path='/dashboard/vehicles'
                     element={<VehiclesPage />}
                   />
+                  <Route path='/dashboard/users' element={<UserAdminPage />} />
                   <Route
                     path='/dashboard/schedules'
                     element={<ReservationsPage heading='Scheduled trips' />}

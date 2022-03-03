@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, database, ref, set, onValue } from '../firebase';
+import { adminApp, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, database, ref, set, onValue } from '../firebase';
 
 function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
@@ -61,7 +61,14 @@ function AuthProvider({ children }) {
     return auth.sendPasswordResetEmail(email);
   }
 
-  let value = { loading, user, signin, signout, signup, resetPassword };
+  const listAllUsers = async (nextPageToken) => {
+    // debugger;
+    // const adminAuth = adminApp.auth(auth);
+    // return adminAuth.listUsers(15, nextPageToken);
+    return [];
+  };
+
+  let value = { loading, user, signin, signout, signup, resetPassword, listAllUsers };
 
   return <AuthContext.Provider value={value}>
     {!loading && children}
