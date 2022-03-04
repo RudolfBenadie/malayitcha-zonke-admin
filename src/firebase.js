@@ -17,7 +17,6 @@ import {
   get,
   remove,
 } from 'firebase/database';
-import serviceAccount from './malayicha-zonke-service-account.json';
 
 const app = initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -36,7 +35,6 @@ const app = initializeApp({
 // });
 
 const auth = getAuth();
-debugger;
 const database = getDatabase();
 export {
   auth,

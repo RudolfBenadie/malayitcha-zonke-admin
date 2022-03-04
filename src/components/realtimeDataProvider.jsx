@@ -41,8 +41,8 @@ function RealtimeDataProvider({ children }) {
   const updateVehicle = async (data) => {
     try {
       const updateVehicleReference = ref(database, `/vehicles/${data.registration}`);
-      const result = await set(updateVehicleReference, data);
-      return result.key;
+      await set(updateVehicleReference, data);
+      return updateVehicleReference.key;
     } catch (error) {
       console.log('Error while updating a new vehicle', error);
     }

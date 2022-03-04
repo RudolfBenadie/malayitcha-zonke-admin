@@ -32,7 +32,7 @@ function LoginPage() {
   let from = location.state?.from?.pathname || "/";
   useEffect(() => {
     setLoading(false);
-    if (auth.user && !loading) return <Navigate to={from} />
+    if (auth.currentUser && !loading) return <Navigate to={from} />
   }, [auth, loading, from]);
 
 

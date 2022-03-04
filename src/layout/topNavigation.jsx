@@ -34,7 +34,7 @@ const TopNavigation = () => {
             <li>
               <Link to="/trips">Trips</Link>
             </li>
-            <ProtectedLink isLoggedIn={auth.user !== null && auth.user !== undefined} />
+            <ProtectedLink isLoggedIn={auth.currentUser !== null && auth.currentUser !== undefined} />
           </ul>
         </div>
         <div className="nav-section nav-authstatus">

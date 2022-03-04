@@ -11,8 +11,12 @@ import {
   faTachometerAlt,
   faSearch,
   faCog,
+  faCheck,
   faCheckSquare,
+  faCheckCircle,
+  faMinusCircle,
   faCoffee,
+  faCross,
   faHome,
   faEnvelope,
   faPencilAlt,
@@ -22,6 +26,8 @@ import {
   faTruck,
   faTruckMoving,
   faUsers,
+  faUserSlash,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import ContactPage from './views/contactPage';
@@ -48,8 +54,12 @@ library.add(
   faTachometerAlt,
   faSearch,
   faCog,
+  faCheck,
   faCheckSquare,
+  faCheckCircle,
+  faMinusCircle,
   faCoffee,
+  faCross,
   faHome,
   faPencilAlt,
   faPhone,
@@ -57,7 +67,9 @@ library.add(
   faTrash,
   faTruck,
   faTruckMoving,
-  faUsers
+  faUser,
+  faUsers,
+  faUserSlash
 );
 
 function App() {

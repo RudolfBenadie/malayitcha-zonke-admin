@@ -8,7 +8,7 @@ const VehiclesPage = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [vehicleEditorIsOpen, setVehicleEditorIsOpen] = useState(false);
   const [vehicleEditing, setVehicleEditing] = useState({});
-  const { user } = useAuth();
+  const { currentUser } = useAuth();
   const realtimeData = useRealtimeData();
   const vehicleFormRef = useRef();
   const vehicleEditFormRef = useRef();
@@ -128,8 +128,8 @@ const VehiclesPage = (props) => {
         <Form id='vehicle-form' autoComplete='off' onSubmit={addVehicle} ref={vehicleFormRef}>
           <ModalBody>
             <InputGroup><InputGroupText>Owner ID</InputGroupText>
-              <select name='vehicle-owner-id' className='form-control' defaultValue={user.uid}>
-                <option value={user.uid}>{user.email}</option>
+              <select name='vehicle-owner-id' className='form-control' defaultValue={currentUser.uid}>
+                <option value={currentUser.uid}>{currentUser.email}</option>
               </select>
             </InputGroup>
             <InputGroup><InputGroupText>Make</InputGroupText><Input name='vehicle-make' type='search'></Input></InputGroup>
@@ -151,7 +151,7 @@ const VehiclesPage = (props) => {
           <ModalBody>
             <InputGroup><InputGroupText>Owner ID</InputGroupText>
               <select name='vehicle-owner-id' className='form-control' defaultValue={vehicleEditing.ownerId} >
-                <option value={user.uid}>{user.email}</option>
+                <option value={currentUser.uid}>{currentUser.email}</option>
               </select>
             </InputGroup>
             <InputGroup><InputGroupText>Make</InputGroupText><Input name='vehicle-make' type='search' defaultValue={vehicleEditing.make}></Input></InputGroup>

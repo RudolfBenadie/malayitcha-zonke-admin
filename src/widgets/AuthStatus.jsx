@@ -17,8 +17,8 @@ function AuthStatus() {
   };
 
   function LoginItem() {
-    let { user, signout } = useAuth();
-    if (!user) {
+    let { currentUser, signout } = useAuth();
+    if (!currentUser) {
       return (
         <DropdownItem onClick={() => navigate("/login")}>Sign in</DropdownItem>
       );
@@ -36,14 +36,14 @@ function AuthStatus() {
   }
 
   function LoginToggle() {
-    let { user } = useAuth();
-    if (!user) {
+    let { currentUser } = useAuth();
+    if (!currentUser) {
       return <DropdownToggle className="nav-profile-button">-</DropdownToggle>;
     }
 
     return (
       <DropdownToggle className="nav-profile-button">
-        {user?.extendedData?.displayName ? user.extendedData.displayName.slice(0, 1).toLocaleUpperCase() : '-'}
+        {currentUser?.extendedData?.displayName ? currentUser.extendedData.displayName.slice(0, 1).toLocaleUpperCase() : '-'}
       </DropdownToggle>
     );
   }
