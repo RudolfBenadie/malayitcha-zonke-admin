@@ -25,6 +25,7 @@ import {
   faTrash,
   faTruck,
   faTruckMoving,
+  faTruckLoading,
   faUsers,
   faUserSlash,
   faUser,
@@ -67,6 +68,7 @@ library.add(
   faTrash,
   faTruck,
   faTruckMoving,
+  faTruckLoading,
   faUser,
   faUsers,
   faUserSlash

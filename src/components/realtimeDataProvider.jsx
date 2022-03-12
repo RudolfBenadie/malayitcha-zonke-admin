@@ -5,13 +5,23 @@ import { database, onValue, ref, set, remove } from '../firebase';
 function RealtimeDataProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [vehicles, setVehicles] = useState([]);
+  const [vehiclesInService, setVehiclesInService] = useState([]);
 
   useEffect(() => {
+    fetchAllVehicles();
+    fetchVehiclesInService();
+    const unsubscribe = Promise.resolve('onAuthStateChanged(auth, user => { setUser(user) });');
+    setLoading(false);
+    return unsubscribe;
+  }, [])
+
+  const fetchAllVehicles = () => {
     const vehiclesRef = ref(database, '/vehicles');
     onValue(vehiclesRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
         let vehiclesArray = [];
+        debugger;
         for (let vehicle of Object.entries(data)) {
           vehiclesArray.push(vehicle[1]);
         }
@@ -20,11 +30,23 @@ function RealtimeDataProvider({ children }) {
         setVehicles([]);
       }
     });
+  }
 
-    const unsubscribe = Promise.resolve('onAuthStateChanged(auth, user => { setUser(user) });');
-    setLoading(false);
-    return unsubscribe;
-  }, [])
+  const fetchVehiclesInService = () => {
+    const vehiclesRef = ref(database, '/vehiclesInService');
+    onValue(vehiclesRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        let vehiclesArray = [];
+        for (let vehicle of Object.entries(data)) {
+          vehiclesArray.push({ registration: vehicle[0], ...vehicle[1] });
+        }
+        setVehiclesInService(vehiclesArray);
+      } else {
+        setVehiclesInService([]);
+      }
+    });
+  }
 
   const addVehicle = async (data) => {
     try {
@@ -55,7 +77,7 @@ function RealtimeDataProvider({ children }) {
     remove(vehicleReference);
   }
 
-  let value = { loading, vehicles, database, addVehicle, deleteVehicle, updateVehicle };
+  let value = { loading, vehicles, vehiclesInService, database, addVehicle, deleteVehicle, updateVehicle };
 
   return <RealtimeDataContext.Provider value={value}>
     {!loading && children}
