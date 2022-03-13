@@ -21,7 +21,6 @@ function RealtimeDataProvider({ children }) {
       const data = snapshot.val();
       if (data) {
         let vehiclesArray = [];
-        debugger;
         for (let vehicle of Object.entries(data)) {
           vehiclesArray.push(vehicle[1]);
         }

@@ -121,3 +121,20 @@
 #map {
   height: 45vh;
 }
+
+.pac-container {
+  background-color: #fff;
+  z-index: 9999;
+  position: fixed;
+  display: inline-block;
+  float: left;
+  width: 100%;
+}
+
+.modal {
+  z-index: 20;
+}
+
+.modal-backdrop {
+  z-index: 10;
+}

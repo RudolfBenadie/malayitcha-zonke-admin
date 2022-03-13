@@ -132,7 +132,7 @@ const VehiclesPage = (props) => {
   }
 
   return (
-    <Wrapper apiKey={"AIzaSyAYzDO6KEPv4Lw5SsSS7hhWN026eoBC-u0"} render={render}>
+    <Wrapper apiKey={"AIzaSyAYzDO6KEPv4Lw5SsSS7hhWN026eoBC-u0"} libraries={["places"]} render={render}>
       <div className="panel-with-sidebar">
         <h3>Fleet vehicle maintenance</h3>
         <Card id='vehicle-page-container'>
