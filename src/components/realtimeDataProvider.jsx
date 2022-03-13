@@ -6,6 +6,7 @@ function RealtimeDataProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [vehicles, setVehicles] = useState([]);
   const [vehiclesInService, setVehiclesInService] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState({ latitude: -25.2465637, longitude: 28.1954947, place_id: null, zoom: 15 });
 
   useEffect(() => {
     fetchAllVehicles();
@@ -47,6 +48,13 @@ function RealtimeDataProvider({ children }) {
     });
   }
 
+  const setVehiclesInServiceLocation = (vehicle, location) => {
+    const vehicleInServiceLatitudeReference = ref(database, `/vehiclesInService/${vehicle.registration}/latitude`);
+    const vehicleInServiceLongitudeReference = ref(database, `/vehiclesInService/${vehicle.registration}/longitude`);
+    set(vehicleInServiceLatitudeReference, location.latitude);
+    set(vehicleInServiceLongitudeReference, location.longitude);
+  }
+
   const addVehicle = async (data) => {
     try {
       const ownerVehicleList = ref(database, `/users/${data.ownerId}/vehicles/${data.registration}`);
@@ -76,7 +84,34 @@ function RealtimeDataProvider({ children }) {
     remove(vehicleReference);
   }
 
-  let value = { loading, vehicles, vehiclesInService, database, addVehicle, deleteVehicle, updateVehicle };
+  const disableVehicle = async (ownerId, vehicleData) => {
+    const vehicleInServiceReference = ref(database, `/vehiclesInService/${vehicleData.registration}`);
+    const vehicleReference = ref(database, `/vehicles/${vehicleData.registration}/lastLocation`);
+    set(vehicleReference, vehicleData.lastLocation)
+    remove(vehicleInServiceReference);
+  }
+
+  const enableVehicle = async (ownerId, vehicleData) => {
+    const vehicleInServiceReference = ref(database, `/vehiclesInService/${vehicleData.registration}`);
+    const vehicleReference = ref(database, `/vehicles/${vehicleData.registration}/lastLocation`);
+    set(vehicleInServiceReference, { latitude: vehicleData.lastLocation.latitude, longitude: vehicleData.lastLocation.longitude })
+    remove(vehicleReference);
+  }
+
+  let value = {
+    loading,
+    vehicles,
+    vehiclesInService,
+    database,
+    addVehicle,
+    deleteVehicle,
+    updateVehicle,
+    disableVehicle,
+    enableVehicle,
+    selectedLocation,
+    setSelectedLocation,
+    setVehiclesInServiceLocation,
+  };
 
   return <RealtimeDataContext.Provider value={value}>
     {!loading && children}

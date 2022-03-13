@@ -11,8 +11,6 @@ const VehiclesPage = (props) => {
   const [locationEditorIsOpen, setLocationEditorIsOpen] = useState(false);
   const [vehicleEditorIsOpen, setVehicleEditorIsOpen] = useState(false);
   const [vehicleEditing, setVehicleEditing] = useState({});
-  const [center, setCenter] = useState({ lat: -25.2465637, lng: 28.1954947 });
-  const [zoom, setZoom] = useState(15);
 
   const { currentUser } = useAuth();
   const realtimeData = useRealtimeData();
@@ -41,9 +39,6 @@ const VehiclesPage = (props) => {
   }
 
   const toggleLocationEditor = () => {
-    if (!locationEditorIsOpen) {
-      setZoom(15);
-    }
     setLocationEditorIsOpen(!locationEditorIsOpen);
   }
 
@@ -85,8 +80,7 @@ const VehiclesPage = (props) => {
     if (realtimeData.vehiclesInService && Array.isArray(realtimeData.vehiclesInService)) {
       const currentLocation = realtimeData.vehiclesInService.find(vehicleInService => vehicleInService.registration === vehicle.registration);
       if (currentLocation) {
-        setCenter({ lat: currentLocation.latitude, lng: currentLocation.longitude });
-        setZoom(20);
+        realtimeData.setSelectedLocation({ latitude: currentLocation.latitude, longitude: currentLocation.longitude, zoom: 20 });
       }
     }
     setVehicleEditing(vehicle);
@@ -112,23 +106,20 @@ const VehiclesPage = (props) => {
     }
   }
 
-  const updateVehicleLocation = (e) => {
-    e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    // const vehicleData = {
-    //   ownerId: data.get('vehicle-owner-id'),
-    //   make: data.get('vehicle-make'),
-    //   model: data.get('vehicle-model'),
-    //   registration: data.get('vehicle-registration'),
-    //   capacity: data.get('vehicle-capacity'),
-    //   location: data.get('vehicle-location'),
-    // }
-    // if (validateVehicle(vehicleData)) {
-    //   realtimeData.updateVehicle(vehicleData);
-    //   toggleEditor();
-    // } else {
-    //   alert('Cannot update the vehicle.')
-    // }
+  const updateVehicleLocation = () => {
+    realtimeData.setVehiclesInServiceLocation(vehicleEditing, realtimeData.selectedLocation);
+    toggleLocationEditor();
+  }
+
+  const disableVehicleInService = (ownerId, vehicle) => {
+    const vehicleInServiceIndex = realtimeData.vehiclesInService.findIndex(item => item.registration === vehicle.registration)
+    const { latitude, longitude } = realtimeData.vehiclesInService[vehicleInServiceIndex];
+    vehicle.lastLocation = { latitude, longitude };
+    realtimeData.disableVehicle(ownerId, vehicle);
+  }
+
+  const enableVehicleInService = (ownerId, vehicle) => {
+    realtimeData.enableVehicle(ownerId, vehicle);
   }
 
   return (
@@ -149,6 +140,7 @@ const VehiclesPage = (props) => {
                   <th>Registration</th>
                   <th>Capacity</th>
                   <th>Base</th>
+                  <th>Location</th>
                   <th>Active</th>
                   <th></th>
                 </tr>
@@ -168,6 +160,20 @@ const VehiclesPage = (props) => {
                           style={{ color: 'grey', marginRight: '5px', cursor: 'pointer' }}
                           onClick={() => { editVehicleLocation(vehicle) }}
                         />
+                      </td>
+                      <td>
+                        {vehicle.lastLocation ?
+                          <FontAwesomeIcon
+                            icon='minus-circle'
+                            style={{ color: 'red', marginRight: '5px', cursor: 'pointer' }}
+                            onClick={() => { enableVehicleInService(vehicle.ownerId, vehicle) }}
+                          /> :
+                          <FontAwesomeIcon
+                            icon='check-circle'
+                            style={{ color: 'green', marginRight: '5px', cursor: 'pointer' }}
+                            onClick={() => { disableVehicleInService(vehicle.ownerId, vehicle) }}
+                          />
+                        }
                       </td>
                       <td style={{ textAlign: 'center' }}>
                         <FontAwesomeIcon
@@ -237,7 +243,7 @@ const VehiclesPage = (props) => {
           <Form id='vehicle-location-form' autoComplete='off' onSubmit={updateVehicleLocation} ref={vehicleLocationFormRef}>
             <ModalHeader>Set current location for a vehicle:</ModalHeader>
             <ModalBody>
-              <GoogleMap center={center} zoom={zoom} />
+              <GoogleMap />
             </ModalBody>
             <ModalFooter>
               <Button color="primary" type="submit">Save</Button>{' '}
