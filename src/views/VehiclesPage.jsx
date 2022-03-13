@@ -106,7 +106,8 @@ const VehiclesPage = (props) => {
     }
   }
 
-  const updateVehicleLocation = () => {
+  const updateVehicleLocation = (e) => {
+    e.preventDefault();
     realtimeData.setVehiclesInServiceLocation(vehicleEditing, realtimeData.selectedLocation);
     toggleLocationEditor();
   }
