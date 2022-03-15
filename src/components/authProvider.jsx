@@ -6,9 +6,15 @@ function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
 
+  // const getCustomClaims = async () => {
+  //   const { claims } = await auth.currentUser.getIdTokenResult();
+  //   setCurrentUser({ ...currentUser, claims });
+  // }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
+
         onValue(ref(database, '/users/' + user.uid), (snapshot) => {
           let extendedData = {};
           if (snapshot.size === 0) {
@@ -28,7 +34,8 @@ function AuthProvider({ children }) {
           } else {
             extendedData = snapshot.val();
           }
-          setCurrentUser({ ...user, extendedData })
+          user[extendedData] = extendedData;
+          setCurrentUser(user);
         }, {
           onlyOnce: true
         });

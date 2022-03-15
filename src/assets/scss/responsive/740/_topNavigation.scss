@@ -1,0 +1,53 @@
+@media screen and (max-width: 741px) {
+  #top-navigation {
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    top: 0;
+    padding: 0.2rem;
+    background-color: $light-color;
+    z-index: 999999;
+  }
+
+  nav {
+    height: 5vh;
+    min-height: 50px;
+    background-color: $light-color;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: fixed;
+
+    ul {
+      display: inline-flex;
+      list-style: none;
+      font-size: x-small;
+
+      li {
+        margin: 0 5px;
+        padding: 5px 8px;
+        border-radius: 5px;
+        background-color: transparent;
+
+        a:hover,
+        a:visited,
+        a:link {
+          font-style: normal;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .nav-profile-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+
+  .nav-brand {
+    span {
+      display: none;
+    }
+  }
+}

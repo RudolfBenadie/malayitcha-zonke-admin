@@ -6,7 +6,7 @@ function RealtimeDataProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [vehicles, setVehicles] = useState([]);
   const [vehiclesInService, setVehiclesInService] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState({ latitude: -25.2465637, longitude: 28.1954947, place_id: null, zoom: 15 });
+  const [selectedLocation, setSelectedLocation] = useState({ latitude: -25.2465637, longitude: 28.1954947, place_id: null, zoom: 18 });
 
   useEffect(() => {
     fetchAllVehicles();

@@ -8,10 +8,16 @@ const LocationSearch = () => {
   const { setSelectedLocation } = useRealtimeData();
 
   useEffect(() => {
-    locationInput = new window.google.maps.places.Autocomplete(ref.current, {});
+    locationInput = new window.google.maps.places.Autocomplete(ref.current, {
+      // bounds: defaultBounds,
+      componentRestrictions: { country: "za" },
+      // fields: ["address_components", "geometry", "icon", "name"],
+      // strictBounds: false,
+      // types: ["establishment"],
+    });
     locationInput.addListener("place_changed", () => {
       const selectedPlace = locationInput.getPlace();
-      setSelectedLocation({ latitude: selectedPlace.geometry.location.lat(), longitude: selectedPlace.geometry.location.lng(), placeId: selectedPlace.place_id, zoom: 15 })
+      setSelectedLocation({ latitude: selectedPlace.geometry.location.lat(), longitude: selectedPlace.geometry.location.lng(), placeId: selectedPlace.place_id, zoom: 18 })
     });
   }, []);
 
