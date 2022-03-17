@@ -31,34 +31,37 @@ const VehiclesPage = (props) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         const pos = {
-  //           lat: position.coords.latitude,
-  //           lng: position.coords.longitude,
-  //         };
-  //         const geocoder = new window.google.maps.Geocoder();
-  //         var latlng = new window.google.maps.LatLng(pos.lat, pos.lng);
-  //         geocoder.geocode({ location: latlng }, (result, status) => {
-  //           if (status == 'OK') {
-  //             console.log(JSON.stringify(result))
-  //             setCurrentUserLocation({ coordinates: pos });
-  //           } else {
-  //             console.log('Geocode was not successful for the following reason: ' + status);
-  //           }
-  //         })
-  //         setCurrentUserLocation({ pos })
-  //       },
-  //       () => {
-  //         console.log(`Geolocation service failed.  Maybe permission issues.`);
-  //       }
-  //     );
-  //   } else {
-  //     console.log(`Browser doesn't support Geolocation`);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          const geocoder = new window.google.maps.Geocoder();
+          var latlng = new window.google.maps.LatLng(pos.lat, pos.lng);
+          debugger;
+          geocoder.geocode({ location: latlng }, (result, status) => {
+            const postCodeLocation = result.filter(entry => entry.types.includes('postal_code'));
+            const approximateLocation = postCodeLocation.sort((a, b) => a.address_components.length > b.address_components.length)
+            if (status == 'OK') {
+              console.log(JSON.stringify(approximateLocation[0]))
+              setCurrentUserLocation({ coordinates: pos, location: approximateLocation });
+            } else {
+              console.log('Geocode was not successful for the following reason: ' + status);
+            }
+          })
+          setCurrentUserLocation({ pos })
+        },
+        () => {
+          console.log(`Geolocation service failed.  Maybe permission issues.`);
+        }
+      );
+    } else {
+      console.log(`Browser doesn't support Geolocation`);
+    }
+  }, []);
 
   const toggle = () => {
     setIsOpen(!isOpen);
