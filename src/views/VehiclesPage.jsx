@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button, Card, CardBody, CardHeader, Form, Input, InputGroup, InputGroupText, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap';
 import { useAuth } from '../context/AuthContext';
 import { useRealtimeData } from '../context/RealtimeDataContext';
@@ -11,6 +11,7 @@ const VehiclesPage = (props) => {
   const [locationEditorIsOpen, setLocationEditorIsOpen] = useState(false);
   const [vehicleEditorIsOpen, setVehicleEditorIsOpen] = useState(false);
   const [vehicleEditing, setVehicleEditing] = useState({});
+  const [currentUserLocation, setCurrentUserLocation] = useState({});
 
   const { currentUser } = useAuth();
   const realtimeData = useRealtimeData();
@@ -29,6 +30,35 @@ const VehiclesPage = (props) => {
       default:
     }
   };
+
+  // useEffect(() => {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       (position) => {
+  //         const pos = {
+  //           lat: position.coords.latitude,
+  //           lng: position.coords.longitude,
+  //         };
+  //         const geocoder = new window.google.maps.Geocoder();
+  //         var latlng = new window.google.maps.LatLng(pos.lat, pos.lng);
+  //         geocoder.geocode({ location: latlng }, (result, status) => {
+  //           if (status == 'OK') {
+  //             console.log(JSON.stringify(result))
+  //             setCurrentUserLocation({ coordinates: pos });
+  //           } else {
+  //             console.log('Geocode was not successful for the following reason: ' + status);
+  //           }
+  //         })
+  //         setCurrentUserLocation({ pos })
+  //       },
+  //       () => {
+  //         console.log(`Geolocation service failed.  Maybe permission issues.`);
+  //       }
+  //     );
+  //   } else {
+  //     console.log(`Browser doesn't support Geolocation`);
+  //   }
+  // }, []);
 
   const toggle = () => {
     setIsOpen(!isOpen);

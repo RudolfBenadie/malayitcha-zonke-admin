@@ -28,8 +28,10 @@ const UserAdminPage = () => {
         data
       });
       const responseData = response.data.data.pageOfUsers;
-      const updatedTokenList = [...pagingTokens, responseData.pageToken];
-      setPagingTokens(updatedTokenList);
+      if (responseData.pageToken !== pagingTokens[pagingTokens.length - 1]) {
+        const updatedTokenList = [...pagingTokens, responseData.pageToken];
+        setPagingTokens(updatedTokenList);
+      }
       setUsers(responseData.users);
     } catch (error) {
       console.log(error.message);

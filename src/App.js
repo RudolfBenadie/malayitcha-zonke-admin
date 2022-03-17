@@ -100,18 +100,10 @@ function App() {
                 >
                   <Route index element={<VehiclesPage />} />
                   <Route
-                    path='/dashboard/reservations'
-                    element={<ReservationsPage heading='Reservations' />}
-                  />
-                  <Route
                     path='/dashboard/vehicles'
                     element={<VehiclesPage />}
                   />
                   <Route path='/dashboard/users' element={<UserAdminPage />} />
-                  <Route
-                    path='/dashboard/schedules'
-                    element={<ReservationsPage heading='Scheduled trips' />}
-                  />
                 </Route>
               </Route>
             </Route>

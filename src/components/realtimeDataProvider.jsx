@@ -80,8 +80,10 @@ function RealtimeDataProvider({ children }) {
   const deleteVehicle = async (ownerId, vehicleRegistration) => {
     const vehicleReference = ref(database, `/vehicles/${vehicleRegistration}`);
     const ownerVehicleReference = ref(database, `/users/${ownerId}/vehicles/${vehicleRegistration}`);
+    const vehiclesInServiceReference = ref(database, `/vehiclesInService/${vehicleRegistration}`)
     remove(ownerVehicleReference);
     remove(vehicleReference);
+    remove(vehiclesInServiceReference);
   }
 
   const disableVehicle = async (ownerId, vehicleData) => {
