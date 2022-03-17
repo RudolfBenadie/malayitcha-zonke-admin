@@ -14,7 +14,7 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
-
+        setCurrentUser(user);
         onValue(ref(database, '/users/' + user.uid), (snapshot) => {
           let extendedData = {};
           if (snapshot.size === 0) {
