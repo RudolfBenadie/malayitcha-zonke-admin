@@ -5,6 +5,8 @@ import { database, onValue, ref, set, remove } from '../firebase';
 function RealtimeDataProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [vehicles, setVehicles] = useState([]);
+  const [crew, setCrew] = useState([]);
+  const [owner, setOwner] = useState([]);
   const [vehiclesInService, setVehiclesInService] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({ latitude: -25.2465637, longitude: 28.1954947, place_id: null, zoom: 18 });
 
@@ -60,8 +62,8 @@ function RealtimeDataProvider({ children }) {
       const ownerVehicleList = ref(database, `/users/${data.ownerId}/vehicles/${data.registration}`);
       set(ownerVehicleList, data.registration);
       const newVehicleReference = ref(database, `/vehicles/${data.registration}`);
-      const result = await set(newVehicleReference, data);
-      return result.key;
+      await set(newVehicleReference, data);
+      return newVehicleReference.key;
     } catch (error) {
       console.log('Error while adding a new vehicle', error);
     }
@@ -73,7 +75,7 @@ function RealtimeDataProvider({ children }) {
       await set(updateVehicleReference, data);
       return updateVehicleReference.key;
     } catch (error) {
-      console.log('Error while updating a new vehicle', error);
+      console.log('Error while updating a vehicle', error);
     }
   }
 
@@ -93,6 +95,38 @@ function RealtimeDataProvider({ children }) {
     remove(vehicleInServiceReference);
   }
 
+  const fetchAllCrew = () => {
+    const crewRef = ref(database, '/crew');
+    onValue(crewRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        let crewArray = [];
+        for (let member of Object.entries(data)) {
+          crewArray.push(member);
+        }
+        setCrew(crewArray);
+      } else {
+        setCrew([]);
+      }
+    });
+  }
+
+  const fetchAllOwner = () => {
+    const ownerRef = ref(database, '/owner');
+    onValue(ownerRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        let ownerArray = [];
+        for (let member of Object.entries(data)) {
+          ownerArray.push(member);
+        }
+        setOwner(ownerArray);
+      } else {
+        setOwner([]);
+      }
+    });
+  }
+
   const enableVehicle = async (ownerId, vehicleData) => {
     const vehicleInServiceReference = ref(database, `/vehiclesInService/${vehicleData.registration}`);
     const vehicleReference = ref(database, `/vehicles/${vehicleData.registration}/lastLocation`);
@@ -100,19 +134,108 @@ function RealtimeDataProvider({ children }) {
     remove(vehicleReference);
   }
 
+  const addCrew = async (uid) => {
+    try {
+      const newCrewReference = ref(database, `/crew/${uid}`);
+      await set(newCrewReference, { enabled: false });
+      return newCrewReference.key;
+    } catch (error) {
+      console.log('Error while adding a new crew member', error);
+    }
+  }
+
+  const updateCrew = async (data) => {
+    try {
+      const updateCrewReference = ref(database, `/crew/${data.uid}`);
+      await set(updateCrewReference, data);
+      return updateCrewReference.key;
+    } catch (error) {
+      console.log('Error while updating a crew member', error);
+    }
+  }
+
+  const deleteCrew = async (uid) => {
+    const deleteCrewReference = ref(database, `/crew/${uid}`);
+    remove(deleteCrewReference);
+  }
+
+  const disableCrew = async (uid) => {
+    const crewReference = ref(database, `/crew/${uid}/enabled`);
+    set(crewReference, false)
+  }
+
+  const enableCrew = async (uid) => {
+    const crewReference = ref(database, `/crew/${uid}/enabled`);
+    set(crewReference, true)
+  }
+
+  const addOwner = async (uid) => {
+    try {
+      const newOwnerReference = ref(database, `/owner/${uid}`);
+      await set(newOwnerReference, { enabled: false });
+      return newOwnerReference.key;
+    } catch (error) {
+      console.log('Error while adding a new owner', error);
+    }
+  }
+
+  const updateOwner = async (data) => {
+    try {
+      const updateOwnerReference = ref(database, `/owner/${data.uid}`);
+      await set(updateOwnerReference, data);
+      return updateOwnerReference.key;
+    } catch (error) {
+      console.log('Error while updating an owner', error);
+    }
+  }
+
+  const deleteOwner = async (uid) => {
+    const deleteOwnerReference = ref(database, `/owner/${uid}`);
+    remove(deleteOwnerReference);
+  }
+
+  const disableOwner = async (uid) => {
+    const ownerReference = ref(database, `/owner/${uid}/enabled`);
+    set(ownerReference, false)
+  }
+
+  const enableOwner = async (uid) => {
+    const ownerReference = ref(database, `/owner/${uid}/enabled`);
+    set(ownerReference, true)
+  }
+
   let value = {
     loading,
-    vehicles,
-    vehiclesInService,
     database,
+
+    vehicles,
     addVehicle,
     deleteVehicle,
     updateVehicle,
     disableVehicle,
     enableVehicle,
+
     selectedLocation,
     setSelectedLocation,
+
+    vehiclesInService,
     setVehiclesInServiceLocation,
+
+    crew,
+    fetchAllCrew,
+    addCrew,
+    updateCrew,
+    deleteCrew,
+    enableCrew,
+    disableCrew,
+
+    owner,
+    fetchAllOwner,
+    addOwner,
+    updateOwner,
+    deleteOwner,
+    enableOwner,
+    disableOwner,
   };
 
   return <RealtimeDataContext.Provider value={value}>
