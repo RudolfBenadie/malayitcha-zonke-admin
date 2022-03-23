@@ -28,6 +28,7 @@ const VehiclesPage = (props) => {
       case Status.SUCCESS:
         return <GoogleMap />;
       default:
+        return <></>;
     }
   };
 
@@ -41,7 +42,6 @@ const VehiclesPage = (props) => {
           };
           const geocoder = new window.google.maps.Geocoder();
           var latlng = new window.google.maps.LatLng(pos.lat, pos.lng);
-          debugger;
           geocoder.geocode({ location: latlng }, (result, status) => {
             const postCodeLocation = result.filter(entry => entry.types.includes('postal_code'));
             const approximateLocation = postCodeLocation.sort((a, b) => a.address_components.length > b.address_components.length)

@@ -14,12 +14,12 @@ const UserAdminPage = () => {
   useEffect(() => {
     if (users.length === 0)
       retrievePageOfUsers('next');
-  })
+  }, []);
 
   const retrievePageOfUsers = async (direction) => {
     const data = {
       query: `{
-        pageOfUsers { pageToken, users { uid, email, customClaims { admin } }}
+        pageOfUsers { pageToken, users { uid, email, customClaims { admin, owner, crew } }}
       }`,
     };
 
@@ -40,9 +40,9 @@ const UserAdminPage = () => {
     }
   }
 
-  const setUserDisabled = async (uid, disabled) => {
+  const setUserDisabled = async (user, disabled) => {
     const data = {
-      query: `mutation{ setUserDisabled (uid: "${uid}", disabled: ${disabled ? 'true' : 'false'}) }`,
+      query: `mutation{ setUserDisabled (uid: "${user.uid}", disabled: ${disabled ? 'true' : 'false'}) }`,
     };
 
     try {
@@ -53,7 +53,7 @@ const UserAdminPage = () => {
       });
       if (response) {
         const updatedUsers = [...users];
-        const index = updatedUsers.findIndex(user => user.uid === uid);
+        const index = updatedUsers.findIndex(updateUser => updateUser.uid === user.uid);
         updatedUsers[index].disabled = disabled;
         setUsers(updatedUsers);
       }
@@ -62,9 +62,16 @@ const UserAdminPage = () => {
     }
   }
 
-  const setUserAdmin = async (uid, isAdmin) => {
+  const setUserAdmin = async (user, isAdmin) => {
     const data = {
-      query: `mutation{ setCustomUserClaims (uid: "${uid}", claimsJSON: "{ \\"admin\\":${isAdmin ? 'true' : 'false'} }") }`,
+      query: `
+      mutation{ 
+        setCustomUserClaims (
+          uid: "7xSNoxvqE8hmrphwPCoiyn8gNUg2", 
+          claimsJSON: "{\\"admin\\":${isAdmin ? 'true' : 'false'},\\"owner\\":${user.customClaims.owner ? 'true' : 'false'},\\"crew\\":${user.customClaims.crew ? 'true' : 'false'}}"
+        ) 
+      }
+      `,
     };
 
     try {
@@ -75,7 +82,7 @@ const UserAdminPage = () => {
       });
       if (response) {
         const updatedUsers = [...users];
-        const index = updatedUsers.findIndex(user => user.uid === uid);
+        const index = updatedUsers.findIndex(updateUser => updateUser.uid === user.uid);
         updatedUsers[index].customClaims.admin = isAdmin;
         setUsers(updatedUsers);
       }
@@ -84,9 +91,16 @@ const UserAdminPage = () => {
     }
   }
 
-  const setUserCrew = async (uid, isCrew) => {
+  const setUserCrew = async (user, isCrew) => {
     const data = {
-      query: `mutation{ setCustomUserClaims (uid: "${uid}", claimsJSON: "{ \\"crew\\":${isCrew ? 'true' : 'false'} }") }`,
+      query: `
+      mutation{ 
+        setCustomUserClaims (
+          uid: "7xSNoxvqE8hmrphwPCoiyn8gNUg2", 
+          claimsJSON: "{\\"admin\\":${user.customClaims.admin ? 'true' : 'false'},\\"owner\\":${user.customClaims.owner ? 'true' : 'false'},\\"crew\\":${isCrew ? 'true' : 'false'}}"
+        ) 
+      }
+      `,
     };
 
     try {
@@ -97,13 +111,13 @@ const UserAdminPage = () => {
       });
       if (response) {
         const updatedUsers = [...users];
-        const index = updatedUsers.findIndex(user => user.uid === uid);
+        const index = updatedUsers.findIndex(updateUser => updateUser.uid === user.uid);
         updatedUsers[index].customClaims.crew = isCrew;
         setUsers(updatedUsers);
         if (isCrew) {
-          realtimeData.addCrew(uid)
+          realtimeData.addCrew(user.uid)
         } else {
-          realtimeData.deleteCrew(uid);
+          realtimeData.deleteCrew(user.uid);
         }
       }
     } catch (error) {
@@ -111,9 +125,16 @@ const UserAdminPage = () => {
     }
   }
 
-  const setUserOwner = async (uid, isOwner) => {
+  const setUserOwner = async (user, isOwner) => {
     const data = {
-      query: `mutation{ setCustomUserClaims (uid: "${uid}", claimsJSON: "{ \\"owner\\":${isOwner ? 'true' : 'false'} }") }`,
+      query: `
+      mutation{ 
+        setCustomUserClaims (
+          uid: "7xSNoxvqE8hmrphwPCoiyn8gNUg2", 
+          claimsJSON: "{\\"admin\\":${user.customClaims.admin ? 'true' : 'false'},\\"owner\\":${isOwner ? 'true' : 'false'},\\"crew\\":${user.customClaims.crew ? 'true' : 'false'}}"
+        ) 
+      }
+      `,
     };
 
     try {
@@ -124,13 +145,13 @@ const UserAdminPage = () => {
       });
       if (response) {
         const updatedUsers = [...users];
-        const index = updatedUsers.findIndex(user => user.uid === uid);
+        const index = updatedUsers.findIndex(updateUser => updateUser.uid === user.uid);
         updatedUsers[index].customClaims.owner = isOwner;
         setUsers(updatedUsers);
         if (isOwner) {
-          realtimeData.addOwner(uid)
+          realtimeData.addOwner(user.uid)
         } else {
-          realtimeData.deleteOwner(uid);
+          realtimeData.deleteOwner(user.uid);
         }
       }
     } catch (error) {
@@ -140,7 +161,7 @@ const UserAdminPage = () => {
 
   return (
     <div className="panel-with-sidebar">
-      <h3>Fleet vehicle maintenance</h3>
+      <h3>User maintenance</h3>
       <Card id='users-page-container'>
         <CardHeader>
           User management
@@ -167,28 +188,28 @@ const UserAdminPage = () => {
                         <FontAwesomeIcon
                           icon={user.disabled ? 'minus-circle' : 'check-circle'}
                           style={{ marginRight: '5px', cursor: 'pointer', color: user.disabled ? 'red' : 'green' }}
-                          onClick={() => { setUserDisabled(user.uid, !user.disabled) }}
+                          onClick={() => { setUserDisabled(user, !user.disabled) }}
                         />
                       </td>
                       <td>
                         <FontAwesomeIcon
                           icon={user.customClaims.owner ? 'check-circle' : 'minus-circle'}
                           style={{ marginRight: '5px', cursor: 'pointer', color: user.customClaims.owner ? 'green' : 'red' }}
-                          onClick={() => { setUserOwner(user.uid, !user.customClaims.owner) }}
+                          onClick={() => { setUserOwner(user, !user.customClaims.owner) }}
                         />
                       </td>
                       <td>
                         <FontAwesomeIcon
                           icon={user.customClaims.crew ? 'check-circle' : 'minus-circle'}
                           style={{ marginRight: '5px', cursor: 'pointer', color: user.customClaims.crew ? 'green' : 'red' }}
-                          onClick={() => { setUserCrew(user.uid, !user.customClaims.crew) }}
+                          onClick={() => { setUserCrew(user, !user.customClaims.crew) }}
                         />
                       </td>
                       <td>
                         <FontAwesomeIcon
                           icon={user.customClaims.admin ? 'check-circle' : 'minus-circle'}
                           style={{ marginRight: '5px', cursor: 'pointer', color: user.customClaims.admin ? 'green' : 'red' }}
-                          onClick={() => { setUserAdmin(user.uid, !user.customClaims.admin) }}
+                          onClick={() => { setUserAdmin(user, !user.customClaims.admin) }}
                         />
                       </td>
                     </tr>

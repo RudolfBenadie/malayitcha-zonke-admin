@@ -29,6 +29,8 @@ import {
   faUsers,
   faUserSlash,
   faUser,
+  faUserCog,
+  faUserTag,
 } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import ContactPage from './views/contactPage';
@@ -44,9 +46,9 @@ import LoginPage from './views/LoginPage';
 import ResetPasswordPage from './views/ResetPasswordPage';
 import TermsPage from './views/termsPage';
 import TripsPage from './views/tripsPage';
-import ReservationsPage from './views/reservationsPage';
 import VehiclesPage from './views/VehiclesPage';
 import UserAdminPage from './views/UserAdminPage';
+import CrewAdminPage from './views/CrewAdminPage';
 
 library.add(
   fab,
@@ -70,6 +72,8 @@ library.add(
   faTruckMoving,
   faTruckLoading,
   faUser,
+  faUserCog,
+  faUserTag,
   faUsers,
   faUserSlash
 );
@@ -104,6 +108,7 @@ function App() {
                     element={<VehiclesPage />}
                   />
                   <Route path='/dashboard/users' element={<UserAdminPage />} />
+                  <Route path='/dashboard/crew' element={<CrewAdminPage />} />
                 </Route>
               </Route>
             </Route>
