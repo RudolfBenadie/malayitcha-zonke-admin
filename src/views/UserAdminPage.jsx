@@ -115,9 +115,9 @@ const UserAdminPage = () => {
         updatedUsers[index].customClaims.crew = isCrew;
         setUsers(updatedUsers);
         if (isCrew) {
-          realtimeData.addCrew(user.uid)
+          realtimeData.addCrew(user)
         } else {
-          realtimeData.deleteCrew(user.uid);
+          realtimeData.deleteCrew(user);
         }
       }
     } catch (error) {
@@ -149,9 +149,9 @@ const UserAdminPage = () => {
         updatedUsers[index].customClaims.owner = isOwner;
         setUsers(updatedUsers);
         if (isOwner) {
-          realtimeData.addOwner(user.uid)
+          realtimeData.addOwner(user)
         } else {
-          realtimeData.deleteOwner(user.uid);
+          realtimeData.deleteOwner(user);
         }
       }
     } catch (error) {

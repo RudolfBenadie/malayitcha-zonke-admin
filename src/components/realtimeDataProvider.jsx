@@ -13,6 +13,8 @@ function RealtimeDataProvider({ children }) {
   useEffect(() => {
     fetchAllVehicles();
     fetchVehiclesInService();
+    fetchAllOwner();
+    fetchAllCrew();
     const unsubscribe = Promise.resolve('onAuthStateChanged(auth, user => { setUser(user) });');
     setLoading(false);
     return unsubscribe;
@@ -134,10 +136,10 @@ function RealtimeDataProvider({ children }) {
     remove(vehicleReference);
   }
 
-  const addCrew = async (uid) => {
+  const addCrew = async (user) => {
     try {
-      const newCrewReference = ref(database, `/crew/${uid}`);
-      await set(newCrewReference, { enabled: false });
+      const newCrewReference = ref(database, `/crew/${user.uid}`);
+      await set(newCrewReference, { enabled: false, name: user.email });
       return newCrewReference.key;
     } catch (error) {
       console.log('Error while adding a new crew member', error);
@@ -154,8 +156,8 @@ function RealtimeDataProvider({ children }) {
     }
   }
 
-  const deleteCrew = async (uid) => {
-    const deleteCrewReference = ref(database, `/crew/${uid}`);
+  const deleteCrew = async (user) => {
+    const deleteCrewReference = ref(database, `/crew/${user.uid}`);
     remove(deleteCrewReference);
   }
 
@@ -169,10 +171,10 @@ function RealtimeDataProvider({ children }) {
     set(crewReference, true)
   }
 
-  const addOwner = async (uid) => {
+  const addOwner = async (user) => {
     try {
-      const newOwnerReference = ref(database, `/owner/${uid}`);
-      await set(newOwnerReference, { enabled: false });
+      const newOwnerReference = ref(database, `/owner/${user.uid}`);
+      await set(newOwnerReference, { enabled: false, name: user.email });
       return newOwnerReference.key;
     } catch (error) {
       console.log('Error while adding a new owner', error);
@@ -189,8 +191,8 @@ function RealtimeDataProvider({ children }) {
     }
   }
 
-  const deleteOwner = async (uid) => {
-    const deleteOwnerReference = ref(database, `/owner/${uid}`);
+  const deleteOwner = async (user) => {
+    const deleteOwnerReference = ref(database, `/owner/${user.uid}`);
     remove(deleteOwnerReference);
   }
 
