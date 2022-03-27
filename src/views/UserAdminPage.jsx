@@ -9,7 +9,7 @@ const UserAdminPage = () => {
   const realtimeData = useRealtimeData();
   const [pagingTokens, setPagingTokens] = useState([]);
   const [users, setUsers] = useState([]);
-  const apiEndpoint = 'http://localhost:8800/'; //'https://us-central1-malayicha-zonke.cloudfunctions.net/graphql';
+  const apiEndpoint = 'https://us-central1-malayicha-zonke.cloudfunctions.net/graphql'; //'http://localhost:8800/';
 
   useEffect(() => {
     if (users.length === 0)

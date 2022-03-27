@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, database, ref, set, onValue } from '../firebase';
-const apiEndpoint = 'http://localhost:8800/'; //;'https://us-central1-malayicha-zonke.cloudfunctions.net/graphql'
+const apiEndpoint = 'https://us-central1-malayicha-zonke.cloudfunctions.net/graphql'; //'http://localhost:8800/';
 
 function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
