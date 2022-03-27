@@ -1,6 +1,8 @@
+import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, database, ref, set, onValue } from '../firebase';
+const apiEndpoint = 'http://localhost:8800/'; //;'https://us-central1-malayicha-zonke.cloudfunctions.net/graphql'
 
 function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
@@ -11,9 +13,36 @@ function AuthProvider({ children }) {
   //   setCurrentUser({ ...currentUser, claims });
   // }
 
+  const getUserClaims = async (uid) => {
+    const data = {
+      query: `{
+        user (uid: "${uid}") {
+          customClaims {
+            admin
+            owner
+            crew
+          }
+        }
+      }`,
+    };
+
+    try {
+      const response = await axios({
+        method: 'post',
+        url: `${apiEndpoint}`,
+        data
+      });
+      return response.data.data.user;
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        const userClaims = await getUserClaims(user.uid);
+        user.customClaims = userClaims.customClaims;
         setCurrentUser(user);
         onValue(ref(database, '/users/' + user.uid), (snapshot) => {
           let extendedData = {};
@@ -24,11 +53,6 @@ function AuthProvider({ children }) {
               displayName: user.email.split('@')[0],
               dob: '',
               email: user.email,
-              claims: {
-                admin: false,
-                consumer: true,
-                provider: true
-              }
             };
             set(ref(database, 'users/' + user.uid), extendedData);
           } else {

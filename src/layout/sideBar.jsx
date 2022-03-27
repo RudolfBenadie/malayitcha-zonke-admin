@@ -2,6 +2,30 @@ import React from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
+import { useAuth } from '../context/AuthContext';
+import { useRealtimeData } from '../context/RealtimeDataContext';
+
+const AdminSection = () => {
+  const auth = useAuth();
+  const realtimeData = useRealtimeData();
+  if (auth.currentUser.customClaims.admin)
+    return (
+      <>
+        <NavItem>
+          <NavLink to='/dashboard/users'>
+            <FontAwesomeIcon icon='users' /><span>Users</span>
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink to='/dashboard/crew'>
+            <FontAwesomeIcon icon='user-cog' /><span>Crew</span>
+          </NavLink>
+        </NavItem>
+      </>
+    )
+  else
+    return <></>
+}
 
 const SideBar = (props) => {
   return (
@@ -11,19 +35,10 @@ const SideBar = (props) => {
     >
       <div className="sidebar-nav">
         <Nav vertical>
+          <AdminSection />
           <NavItem>
             <NavLink to='/dashboard/vehicles'>
               <FontAwesomeIcon icon='truck' /><span>Vehicles</span>
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink to='/dashboard/users'>
-              <FontAwesomeIcon icon='users' /><span>Users</span>
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink to='/dashboard/crew'>
-              <FontAwesomeIcon icon='user-cog' /><span>Crew</span>
             </NavLink>
           </NavItem>
           {/* <NavItem>

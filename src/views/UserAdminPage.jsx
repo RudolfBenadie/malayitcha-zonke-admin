@@ -9,7 +9,7 @@ const UserAdminPage = () => {
   const realtimeData = useRealtimeData();
   const [pagingTokens, setPagingTokens] = useState([]);
   const [users, setUsers] = useState([]);
-  const apiEndpoint = 'https://us-central1-malayicha-zonke.cloudfunctions.net/graphql'; //'http://localhost:8800/';
+  const apiEndpoint = 'http://localhost:8800/'; //'https://us-central1-malayicha-zonke.cloudfunctions.net/graphql';
 
   useEffect(() => {
     if (users.length === 0)
@@ -96,7 +96,7 @@ const UserAdminPage = () => {
       query: `
       mutation{ 
         setCustomUserClaims (
-          uid: "7xSNoxvqE8hmrphwPCoiyn8gNUg2", 
+          uid: "${user.uid}", 
           claimsJSON: "{\\"admin\\":${user.customClaims.admin ? 'true' : 'false'},\\"owner\\":${user.customClaims.owner ? 'true' : 'false'},\\"crew\\":${isCrew ? 'true' : 'false'}}"
         ) 
       }

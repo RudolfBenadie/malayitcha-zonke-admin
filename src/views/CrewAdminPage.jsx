@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { Card, CardBody, CardHeader, Table } from 'reactstrap';
+import { Card, CardBody, CardColumns, CardHeader, Table } from 'reactstrap';
 import { useRealtimeData } from '../context/RealtimeDataContext';
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
@@ -10,6 +10,7 @@ const CrewAdminPage = () => {
   const [currentOwner, setCurrentOwner] = useState(null);
   const [owners, setOwners] = useState([]);
   const [availableCrew, setAvailableCrew] = useState([]);
+  const [assignedCrew, setAssignedCrew] = useState([]);
 
   useEffect(() => {
     const ownerList = realtimeData.owner.reduce((list, item, index) => {
@@ -21,9 +22,36 @@ const CrewAdminPage = () => {
   }, [])
 
   const ownerChanged = (selected) => {
-    setCurrentOwner(selected);
-    const crewList = realtimeData.crew;
-    setAvailableCrew(crewList);
+    if (selected.length > 0) {
+      setCurrentOwner(selected);
+      const availableCrewList = [];
+      const assignedCrewList = [];
+      for (let member of realtimeData.crew) {
+        if (member[0] === selected[0].id || (member[0].assignedTo && member[0].assignedTo !== selected[0].id)) continue
+        else if (member[0].assignedTo || member[0].assignedTo === selected[0].id) assignedCrewList.push(member);
+        else availableCrewList.push(member);
+      }
+      setAvailableCrew(availableCrewList);
+      setAssignedCrew(assignedCrewList);
+    }
+  }
+
+  const assignMemberToOwner = async (member) => {
+    const changedAvailability = [...availableCrew];
+    const assignedMember = changedAvailability.splice(member.index, 1);
+    const changedAssigned = [...assignedCrew, ...assignedMember];
+    setAvailableCrew(changedAvailability);
+    setAssignedCrew(changedAssigned);
+    // Get reference to owner
+    // Add member to owner crew
+  }
+
+  const removeMemberAssignment = async (member) => {
+    const changedAssigned = [...assignedCrew];
+    const assignedMember = changedAssigned.splice(member.index, 1);
+    const changedAvailability = [...availableCrew, ...assignedMember];
+    setAvailableCrew(changedAvailability);
+    setAssignedCrew(changedAssigned);
   }
 
   return (
@@ -44,19 +72,39 @@ const CrewAdminPage = () => {
           <div style={{ margin: 5, height: '90%' }}>
             <Card style={{ height: '100%' }}>
               <CardBody style={{ display: 'flex' }}>
-                <div style={{ flex: 1, border: '1px solid black', maxWidth: '400px', }}>
-                  <Table hover>
-                    <tbody >
-                      {
-                        availableCrew.map((member, index) => {
-                          return <tr key={index}><td>{member[1].name}</td></tr>
-                        })
-                      }
-                    </tbody>
-                  </Table>
+                <div style={{ flex: 1, maxWidth: '400px', }}>
+                  <Card style={{ height: '100%' }}>
+                    <CardHeader>Available crew</CardHeader>
+                    <CardBody>
+                      <Table hover responsive size="sm">
+                        <tbody >
+                          {
+                            availableCrew.map((member, index) => {
+                              return <tr key={index} onClick={() => { assignMemberToOwner(index, member) }}><td>{member[1].name}</td></tr>
+                            })
+                          }
+                        </tbody>
+                      </Table>
+                    </CardBody>
+                  </Card>
                 </div>
                 <div style={{ flex: 1, maxWidth: '100px', }}></div>
-                <div style={{ flex: 1, border: '1px solid black', maxWidth: '400px', }}></div>
+                <div style={{ flex: 1, maxWidth: '400px', }}>
+                  <Card style={{ height: '100%' }}>
+                    <CardHeader>Assigned crew</CardHeader>
+                    <CardBody>
+                      <Table hover responsive size="sm">
+                        <tbody >
+                          {
+                            assignedCrew.map((member, index) => {
+                              return <tr key={index} onClick={() => { removeMemberAssignment(index, member) }}><td>{member[1].name}</td></tr>
+                            })
+                          }
+                        </tbody>
+                      </Table>
+                    </CardBody>
+                  </Card>
+                </div>
               </CardBody>
             </Card>
           </div>

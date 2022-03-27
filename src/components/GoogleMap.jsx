@@ -17,7 +17,6 @@ const GoogleMap = ({ center, zoom }) => {
       setSelectedLocation({ latitude: mapsMouseEvent.latLng.lat(), longitude: mapsMouseEvent.latLng.lng(), placeId: null, zoom: 15 })
     });
     map.addListener("place_changed", (placeChangeEvent) => {
-      debugger;
       const longitude = (placeChangeEvent.geometry.viewport.Sa.h + placeChangeEvent.geometry.viewport.Sa.j) / 2;
       const latitude = (placeChangeEvent.geometry.viewport.wb.h + placeChangeEvent.geometry.viewport.wb.j) / 2;
       setSelectedLocation({ latitude, longitude, placeId: placeChangeEvent.place_id, zoom: 15 })
