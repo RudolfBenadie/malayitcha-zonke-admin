@@ -36,22 +36,22 @@ const CrewAdminPage = () => {
     }
   }
 
-  const assignMemberToOwner = async (member) => {
+  const assignMemberToOwner = async (index, member) => {
     const changedAvailability = [...availableCrew];
-    const assignedMember = changedAvailability.splice(member.index, 1);
+    const assignedMember = changedAvailability.splice(index, 1);
     const changedAssigned = [...assignedCrew, ...assignedMember];
     setAvailableCrew(changedAvailability);
     setAssignedCrew(changedAssigned);
-    // Get reference to owner
-    // Add member to owner crew
+    realtimeData.linkCrewToOwner(currentOwner[0], member);
   }
 
-  const removeMemberAssignment = async (member) => {
+  const removeMemberAssignment = async (index, member) => {
     const changedAssigned = [...assignedCrew];
-    const assignedMember = changedAssigned.splice(member.index, 1);
+    const assignedMember = changedAssigned.splice(index, 1);
     const changedAvailability = [...availableCrew, ...assignedMember];
     setAvailableCrew(changedAvailability);
     setAssignedCrew(changedAssigned);
+    realtimeData.unlinkCrewFromOwner(currentOwner[0], member);
   }
 
   return (

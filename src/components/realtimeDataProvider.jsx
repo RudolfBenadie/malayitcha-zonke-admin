@@ -206,6 +206,34 @@ function RealtimeDataProvider({ children }) {
     set(ownerReference, true)
   }
 
+  const linkCrewToOwner = async (ownerToLinkTo, crewToLink) => {
+    const ownerReference = ref(database, `/owner/${ownerToLinkTo.id}/crew`);
+    const crewReference = ref(database, `/crew/${crewToLink[0]}/owner`);
+    const ownerIndex = owner.findIndex(item => item[0] === ownerToLinkTo.id);
+    let updatedCrew;
+    if (!owner[ownerIndex][1].crew)
+      updatedCrew = [crewToLink[0]]
+    else
+      updatedCrew = [...owner[ownerIndex][1].crew, crewToLink[0]];
+    set(ownerReference, updatedCrew);
+    set(crewReference, ownerToLinkTo.id);
+  }
+
+  const unlinkCrewFromOwner = async (linkedOwner, linkedCrew) => {
+    const ownerIndex = owner.findIndex(item => item[0] === linkedOwner.id);
+    const currentOwner = { id: owner[ownerIndex][0], ...owner[ownerIndex][1] }
+    const ownerReference = ref(database, `/owner/${linkedOwner.id}/crew`);
+    const crewReference = ref(database, `/crew/${linkedCrew[0]}/owner`);
+    remove(crewReference);
+    let updatedCrew = [];
+    if (currentOwner.crew.length > 0) {
+      updatedCrew = currentOwner.crew.filter(item => {
+        return item !== linkedCrew[0]
+      });
+    }
+    set(ownerReference, updatedCrew);
+  }
+
   let value = {
     loading,
     database,
@@ -230,6 +258,8 @@ function RealtimeDataProvider({ children }) {
     deleteCrew,
     enableCrew,
     disableCrew,
+    linkCrewToOwner,
+    unlinkCrewFromOwner,
 
     owner,
     fetchAllOwner,
