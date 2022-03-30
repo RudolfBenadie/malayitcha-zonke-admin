@@ -49,6 +49,7 @@ import TripsPage from './views/tripsPage';
 import VehiclesPage from './views/VehiclesPage';
 import UserAdminPage from './views/UserAdminPage';
 import CrewAdminPage from './views/CrewAdminPage';
+import TripAdminPage from './views/TripAdminPage';
 
 library.add(
   fab,
@@ -109,6 +110,7 @@ function App() {
                   />
                   <Route path='/dashboard/users' element={<UserAdminPage />} />
                   <Route path='/dashboard/crew' element={<CrewAdminPage />} />
+                  <Route path='/dashboard/trips' element={<TripAdminPage />} />
                 </Route>
               </Route>
             </Route>

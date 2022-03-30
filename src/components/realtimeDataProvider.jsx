@@ -174,7 +174,12 @@ function RealtimeDataProvider({ children }) {
   const addOwner = async (user) => {
     try {
       const newOwnerReference = ref(database, `/owner/${user.uid}`);
-      await set(newOwnerReference, { enabled: false, name: user.email });
+      await set(newOwnerReference, { enabled: false, name: user.email, crew: [user.uid] });
+      const ownerIsCrew = crew.findIndex(item => item.id === user.uid);
+      if (ownerIsCrew) {
+        const crewReference = ref(database, `/crew/${user.uid}/owner`);
+        await set(crewReference, user.uid);
+      }
       return newOwnerReference.key;
     } catch (error) {
       console.log('Error while adding a new owner', error);
@@ -194,6 +199,11 @@ function RealtimeDataProvider({ children }) {
   const deleteOwner = async (user) => {
     const deleteOwnerReference = ref(database, `/owner/${user.uid}`);
     remove(deleteOwnerReference);
+    const ownerIsCrew = crew.findIndex(item => item.id === user.uid);
+    if (ownerIsCrew) {
+      const crewReference = ref(database, `/crew/${user.uid}/owner`);
+      remove(crewReference);
+    }
   }
 
   const disableOwner = async (uid) => {
@@ -207,28 +217,28 @@ function RealtimeDataProvider({ children }) {
   }
 
   const linkCrewToOwner = async (ownerToLinkTo, crewToLink) => {
-    const ownerReference = ref(database, `/owner/${ownerToLinkTo.id}/crew`);
-    const crewReference = ref(database, `/crew/${crewToLink[0]}/owner`);
-    const ownerIndex = owner.findIndex(item => item[0] === ownerToLinkTo.id);
+    const ownerReference = ref(database, `/owner/${ownerToLinkTo}/crew`);
+    const crewReference = ref(database, `/crew/${crewToLink}/owner`);
+    const ownerIndex = owner.findIndex(item => item[0] === ownerToLinkTo);
     let updatedCrew;
     if (!owner[ownerIndex][1].crew)
-      updatedCrew = [crewToLink[0]]
+      updatedCrew = [crewToLink]
     else
-      updatedCrew = [...owner[ownerIndex][1].crew, crewToLink[0]];
+      updatedCrew = [...owner[ownerIndex][1].crew, crewToLink];
     set(ownerReference, updatedCrew);
-    set(crewReference, ownerToLinkTo.id);
+    set(crewReference, ownerToLinkTo);
   }
 
   const unlinkCrewFromOwner = async (linkedOwner, linkedCrew) => {
-    const ownerIndex = owner.findIndex(item => item[0] === linkedOwner.id);
+    const ownerIndex = owner.findIndex(item => item[0] === linkedOwner);
     const currentOwner = { id: owner[ownerIndex][0], ...owner[ownerIndex][1] }
-    const ownerReference = ref(database, `/owner/${linkedOwner.id}/crew`);
-    const crewReference = ref(database, `/crew/${linkedCrew[0]}/owner`);
+    const ownerReference = ref(database, `/owner/${linkedOwner}/crew`);
+    const crewReference = ref(database, `/crew/${linkedCrew}/owner`);
     remove(crewReference);
     let updatedCrew = [];
     if (currentOwner.crew.length > 0) {
       updatedCrew = currentOwner.crew.filter(item => {
-        return item !== linkedCrew[0]
+        return item !== linkedCrew
       });
     }
     set(ownerReference, updatedCrew);

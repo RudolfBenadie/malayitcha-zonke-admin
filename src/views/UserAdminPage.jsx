@@ -67,7 +67,7 @@ const UserAdminPage = () => {
       query: `
       mutation{ 
         setCustomUserClaims (
-          uid: "7xSNoxvqE8hmrphwPCoiyn8gNUg2", 
+          uid: "${user.uid}", 
           claimsJSON: "{\\"admin\\":${isAdmin ? 'true' : 'false'},\\"owner\\":${user.customClaims.owner ? 'true' : 'false'},\\"crew\\":${user.customClaims.crew ? 'true' : 'false'}}"
         ) 
       }
@@ -130,7 +130,7 @@ const UserAdminPage = () => {
       query: `
       mutation{ 
         setCustomUserClaims (
-          uid: "7xSNoxvqE8hmrphwPCoiyn8gNUg2", 
+          uid: "${user.uid}", 
           claimsJSON: "{\\"admin\\":${user.customClaims.admin ? 'true' : 'false'},\\"owner\\":${isOwner ? 'true' : 'false'},\\"crew\\":${user.customClaims.crew ? 'true' : 'false'}}"
         ) 
       }
@@ -149,9 +149,9 @@ const UserAdminPage = () => {
         updatedUsers[index].customClaims.owner = isOwner;
         setUsers(updatedUsers);
         if (isOwner) {
-          realtimeData.addOwner(user)
+          await realtimeData.addOwner(user);
         } else {
-          realtimeData.deleteOwner(user);
+          await realtimeData.deleteOwner(user);
         }
       }
     } catch (error) {

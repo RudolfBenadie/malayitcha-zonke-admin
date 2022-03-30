@@ -14,7 +14,7 @@ const CrewAdminPage = () => {
 
   useEffect(() => {
     const ownerList = realtimeData.owner.reduce((list, item, index) => {
-      list.push({ id: item[0], label: item[1].name })
+      list.push({ id: item[0], label: item[1].name, ...item[1] })
       return list;
     }, [])
     console.log(ownerList);
@@ -27,8 +27,8 @@ const CrewAdminPage = () => {
       const availableCrewList = [];
       const assignedCrewList = [];
       for (let member of realtimeData.crew) {
-        if (member[0] === selected[0].id || (member[0].assignedTo && member[0].assignedTo !== selected[0].id)) continue
-        else if (member[0].assignedTo || member[0].assignedTo === selected[0].id) assignedCrewList.push(member);
+        if (member[0] === selected[0].id || (member[1].owner && member[1].owner !== selected[0].id)) continue
+        else if (member[1].owner || member[1].owner === selected[0].id) assignedCrewList.push(member);
         else availableCrewList.push(member);
       }
       setAvailableCrew(availableCrewList);
@@ -42,7 +42,7 @@ const CrewAdminPage = () => {
     const changedAssigned = [...assignedCrew, ...assignedMember];
     setAvailableCrew(changedAvailability);
     setAssignedCrew(changedAssigned);
-    realtimeData.linkCrewToOwner(currentOwner[0], member);
+    realtimeData.linkCrewToOwner(currentOwner[0].id, member[0]);
   }
 
   const removeMemberAssignment = async (index, member) => {
@@ -51,7 +51,7 @@ const CrewAdminPage = () => {
     const changedAvailability = [...availableCrew, ...assignedMember];
     setAvailableCrew(changedAvailability);
     setAssignedCrew(changedAssigned);
-    realtimeData.unlinkCrewFromOwner(currentOwner[0], member);
+    realtimeData.unlinkCrewFromOwner(currentOwner[0].id, member[0]);
   }
 
   return (

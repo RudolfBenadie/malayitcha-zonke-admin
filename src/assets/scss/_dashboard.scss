@@ -70,6 +70,24 @@
   }
 }
 
+#add-journey-modal {
+  .modal-content {
+    transform: translateY(20vh);
+  }
+
+  .input-group {
+    margin: 10px 0;
+  }
+
+  .input-group > .form-control {
+    flex: 3;
+  }
+
+  .input-group-text {
+    flex: 1;
+  }
+}
+
 #set-location-modal {
   max-width: 50%;
   .modal-content {
@@ -87,6 +105,20 @@
   .input-group-text {
     flex: 1;
   }
+}
+
+#trip-admin-page-container {
+  margin: 10px 20px 20px 10px;
+  border: 1px solid #333;
+  box-shadow: 7px 7px 5px -5px black;
+  height: 80%;
+}
+
+#users-page-container {
+  margin: 10px 20px 20px 10px;
+  border: 1px solid #333;
+  box-shadow: 7px 7px 5px -5px black;
+  height: 80%;
 }
 
 #vehicle-page-container {
@@ -137,4 +169,8 @@
 
 .modal-backdrop {
   z-index: 10;
+}
+
+.indent {
+  padding-left: 5%;
 }

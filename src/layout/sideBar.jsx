@@ -41,12 +41,12 @@ const SideBar = (props) => {
               <FontAwesomeIcon icon='truck' /><span>Vehicles</span>
             </NavLink>
           </NavItem>
-          {/* <NavItem>
-            <NavLink to='/dashboard/schedules'>
-              //To make a spinning icon, add: className='fa-spin'
-              <FontAwesomeIcon icon='shipping-fast' /><span>Scheduled trips</span>
+          <NavItem>
+            <NavLink to='/dashboard/trips'>
+              {/* To make a spinning icon, add: className='fa-spin' */}
+              <FontAwesomeIcon icon='shipping-fast' /><span>Trips</span>
             </NavLink>
-          </NavItem> */}
+          </NavItem>
         </Nav>
       </div>
       <div id="sidebar-button">
