@@ -1,3 +1,4 @@
+import { push } from 'firebase/database';
 import React, { useEffect, useState } from "react";
 import { RealtimeDataContext } from "../context/RealtimeDataContext";
 import { database, onValue, ref, set, remove } from '../firebase';
@@ -7,6 +8,7 @@ function RealtimeDataProvider({ children }) {
   const [vehicles, setVehicles] = useState([]);
   const [crew, setCrew] = useState([]);
   const [owner, setOwner] = useState([]);
+  const [trips, setTrips] = useState([]);
   const [vehiclesInService, setVehiclesInService] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({ latitude: -25.2465637, longitude: 28.1954947, place_id: null, zoom: 18 });
 
@@ -15,6 +17,7 @@ function RealtimeDataProvider({ children }) {
     fetchVehiclesInService();
     fetchAllOwner();
     fetchAllCrew();
+    fetchAllTrips();
     const unsubscribe = Promise.resolve('onAuthStateChanged(auth, user => { setUser(user) });');
     setLoading(false);
     return unsubscribe;
@@ -62,7 +65,7 @@ function RealtimeDataProvider({ children }) {
   const addVehicle = async (data) => {
     try {
       const ownerVehicleList = ref(database, `/users/${data.ownerId}/vehicles/${data.registration}`);
-      set(ownerVehicleList, data.registration);
+      await set(ownerVehicleList, data.registration);
       const newVehicleReference = ref(database, `/vehicles/${data.registration}`);
       await set(newVehicleReference, data);
       return newVehicleReference.key;
@@ -244,6 +247,35 @@ function RealtimeDataProvider({ children }) {
     set(ownerReference, updatedCrew);
   }
 
+  const fetchAllTrips = () => {
+    const tripsRef = ref(database, '/trips');
+    onValue(tripsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        let tripArray = [];
+        for (let trip of Object.entries(data)) {
+          tripArray.push(trip[1]);
+        }
+        setTrips(tripArray);
+      } else {
+        setTrips([]);
+      }
+    });
+  }
+
+  const addTrip = async (trip) => {
+    try {
+      const newTripReference = ref(database, `/trips`);
+      await push(newTripReference, trip);
+      const newTripId = newTripReference.key;
+      const ownerTripList = ref(database, `/users/${trip.ownerId}/trips/${newTripId}}`);
+      await set(ownerTripList, trip);
+      return newTripId;
+    } catch (error) {
+      console.log('Error while adding a new vehicle', error);
+    }
+  }
+
   let value = {
     loading,
     database,
@@ -278,6 +310,10 @@ function RealtimeDataProvider({ children }) {
     deleteOwner,
     enableOwner,
     disableOwner,
+
+    trips,
+    fetchAllTrips,
+    addTrip,
   };
 
   return <RealtimeDataContext.Provider value={value}>

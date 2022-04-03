@@ -70,7 +70,21 @@
   }
 }
 
-#add-journey-modal {
+#appointment-date-picker {
+  flex: 3;
+}
+
+.modal-select-input {
+  flex: 3;
+}
+
+.modal-select-input > div {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#add-trip-modal,
+#time-keeper {
   .modal-content {
     transform: translateY(20vh);
   }
