@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, database, ref, set, onValue } from '../firebase';
-const apiEndpoint = 'https://us-central1-malayicha-zonke.cloudfunctions.net/graphql'; //'http://localhost:8800/';
+const apiEndpoint = 'https://us-central1-malayicha-zonke.cloudfunctions.net/graphql';
+//const apiEndpoint = 'http://localhost:8800/';
 
 function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
@@ -13,10 +14,10 @@ function AuthProvider({ children }) {
   //   setCurrentUser({ ...currentUser, claims });
   // }
 
-  const getUserClaims = async (uid) => {
+  const getUserClaims = async (currentUser) => {
     const data = {
       query: `{
-        user (uid: "${uid}") {
+        user (uid: "${currentUser.uid}") {
           customClaims {
             admin
             owner
@@ -30,7 +31,10 @@ function AuthProvider({ children }) {
       const response = await axios({
         method: 'post',
         url: `${apiEndpoint}`,
-        data
+        headers: {
+          authorisation: currentUser.stsTokenManager.accessToken,
+        },
+        data,
       });
       return response.data.data.user;
     } catch (error) {
@@ -41,7 +45,7 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const userClaims = await getUserClaims(user.uid);
+        const userClaims = await getUserClaims(user);
         user.customClaims = userClaims.customClaims;
         setCurrentUser(user);
         onValue(ref(database, '/users/' + user.uid), (snapshot) => {

@@ -3,13 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardHeader, Table } from 'reactstrap';
 import axios from 'axios';
 import { useRealtimeData } from '../context/RealtimeDataContext';
+import { useAuth } from '../context/AuthContext';
 
 const UserAdminPage = () => {
-
+  const { currentUser } = useAuth();
   const realtimeData = useRealtimeData();
   const [pagingTokens, setPagingTokens] = useState([]);
   const [users, setUsers] = useState([]);
-  const apiEndpoint = 'https://us-central1-malayicha-zonke.cloudfunctions.net/graphql'; //'http://localhost:8800/';
+  const apiEndpoint = 'https://us-central1-malayicha-zonke.cloudfunctions.net/graphql';
+  //const apiEndpoint = 'http://localhost:8800/';
 
   useEffect(() => {
     if (users.length === 0)
@@ -27,7 +29,10 @@ const UserAdminPage = () => {
       const response = await axios({
         method: 'post',
         url: `${apiEndpoint}`,
-        data
+        headers: {
+          authorisation: currentUser.stsTokenManager.accessToken,
+        },
+        data,
       });
       const responseData = response.data.data.pageOfUsers;
       if (responseData.pageToken !== pagingTokens[pagingTokens.length - 1]) {
@@ -49,7 +54,10 @@ const UserAdminPage = () => {
       const response = await axios({
         method: 'post',
         url: `${apiEndpoint}`,
-        data
+        headers: {
+          authorisation: currentUser.stsTokenManager.accessToken,
+        },
+        data,
       });
       if (response) {
         const updatedUsers = [...users];
@@ -78,7 +86,10 @@ const UserAdminPage = () => {
       const response = await axios({
         method: 'post',
         url: `${apiEndpoint}`,
-        data
+        headers: {
+          authorisation: currentUser.stsTokenManager.accessToken,
+        },
+        data,
       });
       if (response) {
         const updatedUsers = [...users];
@@ -107,7 +118,10 @@ const UserAdminPage = () => {
       const response = await axios({
         method: 'post',
         url: `${apiEndpoint}`,
-        data
+        headers: {
+          authorisation: currentUser.stsTokenManager.accessToken,
+        },
+        data,
       });
       if (response) {
         const updatedUsers = [...users];
@@ -141,7 +155,10 @@ const UserAdminPage = () => {
       const response = await axios({
         method: 'post',
         url: `${apiEndpoint}`,
-        data
+        headers: {
+          authorisation: currentUser.stsTokenManager.accessToken,
+        },
+        data,
       });
       if (response) {
         const updatedUsers = [...users];
@@ -225,5 +242,4 @@ const UserAdminPage = () => {
   )
 }
 
-export default UserAdminPage
-
+export default UserAdminPage;
