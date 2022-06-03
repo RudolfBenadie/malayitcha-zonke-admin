@@ -1,4 +1,14 @@
 @media screen and (max-width: 741px) {
+  #footer-wrapper {
+    height: 15vh;
+    bottom: -15vh;
+
+    #footer-toggle {
+      height: 15px;
+      top: -27px;
+    }
+  }
+
   .footer-section {
     padding: 20px 0px 10px 10px;
   }

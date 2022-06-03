@@ -16,6 +16,8 @@ import {
   faCheckSquare,
   faCheckCircle,
   faMinusCircle,
+  faMoneyBillWaveAlt,
+  faMoneyBillWave,
   faCoffee,
   faCross,
   faHome,
@@ -29,11 +31,13 @@ import {
   faTruck,
   faTruckMoving,
   faTruckLoading,
+  faUmbrella,
   faUsers,
   faUserSlash,
   faUser,
   faUserCog,
   faUserTag,
+  faWrench,
 } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import ContactPage from './views/contactPage';
@@ -70,6 +74,8 @@ library.add(
   faCoffee,
   faCross,
   faHome,
+  faMoneyBillWaveAlt,
+  faMoneyBillWave,
   faPencilAlt,
   faPhone,
   faPlay,
@@ -78,11 +84,13 @@ library.add(
   faTruck,
   faTruckMoving,
   faTruckLoading,
+  faUmbrella,
   faUser,
   faUserCog,
   faUserTag,
   faUsers,
-  faUserSlash
+  faUserSlash,
+  faWrench
 );
 
 function App() {
