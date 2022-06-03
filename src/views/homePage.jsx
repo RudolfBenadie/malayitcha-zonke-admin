@@ -11,7 +11,7 @@ const HomePage = () => {
         id='top-panel'
       >
         <div id='catch-phrase'><span>The easiest way to find transport</span></div>
-        <div id='summary'><span>Malayicha zonke gives you access to plenty of vehicles to fill your transportation requirements</span></div>
+        <div id='summary'><span>Malayicha gives you access to plenty of vehicles to fulfill your transportation requirements</span></div>
         <div id='quick-search-wrapper'>
           <div id='quick-search'>
           </div>
@@ -36,7 +36,7 @@ const HomePage = () => {
                   Extensive fleet
                 </h4>
                 <span>
-                  Sourcing vehicles from owner-drivers and commercial fleets, Malaicha has vehicles that can cater for any load from any destination to where it is needed.
+                  Sourcing vehicles from owner-drivers and commercial fleets, Malayicha has vehicles that can cater for any load from any destination to where it is needed.
                 </span>
               </Row>
               <Row>

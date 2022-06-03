@@ -1,8 +1,6 @@
 @import "./mixins";
 @import "./variables";
 
-@import "./responsive/740/topNavigation";
-
 @import "./global";
 @import "./app";
 @import "./baseLayout";
@@ -12,3 +10,11 @@
 @import "./contact";
 @import "./home";
 @import "./dashboard";
+
+@import "./responsive/740/topNavigation";
+@import "./responsive/740/siteFooter";
+@import "./responsive/740/home";
+
+@import "./responsive/415/topNavigation";
+@import "./responsive/415/siteFooter";
+@import "./responsive/415/home";

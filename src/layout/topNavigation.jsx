@@ -23,8 +23,8 @@ const TopNavigation = () => {
     <Navbar id='top-navigation'>
       <div className="nav-wrapper">
         <div className="nav-section nav-brand" onClick={() => navigate("/")}>
-          <img src={logo} alt="Malayitcha logo - truck in motion" />
-          <span>Malayitcha Zonke</span>
+          <img src={logo} alt="Malayicha logo - truck in motion" />
+          <span>Malayicha Zonke</span>
         </div>
         <div className="nav-section nav-menu">
           <ul>

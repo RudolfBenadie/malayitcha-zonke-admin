@@ -53,7 +53,6 @@
       min-width: 300px;
       width: 33%;
       margin: 0 auto;
-      top: 5%;
       background-color: $light-fill;
       position: relative;
       top: 25%;
@@ -64,6 +63,10 @@
 #bottom-wrapper {
   width: 100%;
   margin-top: 20px;
+
+  .row {
+    margin-bottom: 50px;
+  }
 
   #bottom-panel {
     width: 90%;
@@ -77,6 +80,7 @@
 
       #get-started {
         text-align: center;
+        overflow: hidden;
 
         #get-started-button {
           margin: 10px;

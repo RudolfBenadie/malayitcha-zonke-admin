@@ -1,0 +1,27 @@
+@media screen and (max-width: 415px) {
+  #footer-wrapper {
+    height: 15vh;
+    bottom: -15vh;
+
+    #footer-toggle {
+      height: 15px;
+      top: -27px;
+    }
+  }
+
+  .footer-section {
+    padding: 20px 0px 0px 10px;
+
+    h5 {
+      font-size: 1.2em;
+    }
+
+    .nav.flex-column {
+      font-size: 0.8em;
+    }
+  }
+
+  .spacer {
+    display: none;
+  }
+}

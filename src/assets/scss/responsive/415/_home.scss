@@ -1,0 +1,70 @@
+@media screen and (max-width: 415px) {
+  #top-panel {
+    height: 40vh;
+
+    #catch-phrase {
+      width: 95%;
+      margin: 0 auto;
+      text-align: center;
+      flex: 1;
+
+      span {
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+    }
+
+    #summary {
+      flex: 3;
+      font-size: 0.8em;
+      font-weight: bold;
+      width: 75%;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    #quick-search-wrapper {
+      flex: 2;
+
+      #quick-search {
+        height: 50px;
+        width: 95%;
+        margin: 0 auto;
+        background-color: $light-fill;
+        position: relative;
+        top: 15%;
+      }
+    }
+  }
+
+  #bottom-wrapper {
+    #bottom-panel {
+      width: 75%;
+      max-width: 740px;
+      margin: 0 auto;
+
+      .row {
+        margin-bottom: 30px;
+      }
+
+      #advantages-panel {
+        flex-direction: column;
+
+        #get-started {
+          text-align: center;
+          margin-top: 50px;
+
+          #get-started-button {
+            margin: 10px;
+            background-color: $steelblue-darken-3;
+          }
+        }
+
+        .advantages-icons {
+          height: 40px;
+          width: 40px;
+        }
+      }
+    }
+  }
+}
