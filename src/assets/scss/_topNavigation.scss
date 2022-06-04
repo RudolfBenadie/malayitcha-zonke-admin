@@ -5,6 +5,7 @@
   top: 0;
   padding: 0.5rem 2rem;
   background-color: $light-fill;
+  color: #040404;
   z-index: 999999;
 }
 
@@ -22,16 +23,27 @@ nav {
     list-style: none;
 
     li {
-      margin: 0 5px;
-      padding: 5px 8px;
       border-radius: 5px;
       background-color: transparent;
 
-      a:hover,
+      a {
+        margin: 5px;
+        padding: 15px;
+        border-radius: 5px;
+      }
+
       a:visited,
       a:link {
         font-style: normal;
         text-decoration: none;
+        color: #040404;
+      }
+
+      a:hover {
+        font-style: normal;
+        text-decoration: none;
+        color: $light-fill;
+        background-color: $steelblue-darken-2;
       }
     }
   }
@@ -65,6 +77,14 @@ nav {
 
 .nav-brand {
   cursor: pointer;
+
+  img {
+    margin-right: 10px;
+  }
+
+  span {
+    font-weight: bold;
+  }
 }
 
 .nav-authstatus {

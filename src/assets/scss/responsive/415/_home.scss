@@ -1,6 +1,6 @@
 @media screen and (max-width: 415px) {
   #top-panel {
-    height: 40vh;
+    height: 300px;
 
     #catch-phrase {
       width: 95%;
@@ -9,14 +9,14 @@
       flex: 1;
 
       span {
-        font-size: 1.5em;
+        font-size: 1.25em;
         font-weight: bold;
       }
     }
 
     #summary {
       flex: 3;
-      font-size: 0.8em;
+      font-size: 0.75em;
       font-weight: bold;
       width: 75%;
       text-align: center;
@@ -27,12 +27,49 @@
       flex: 2;
 
       #quick-search {
-        height: 50px;
+        height: 70px;
         width: 95%;
         margin: 0 auto;
         background-color: $light-fill;
         position: relative;
         top: 15%;
+
+        h5 {
+          font-size: 0.75em;
+        }
+
+        .search-control {
+          font-size: 0.75em;
+        }
+
+        #search-form {
+          padding: 0 3px;
+
+          #origin {
+            flex: 3;
+            margin: 0 5px;
+          }
+
+          #type {
+            flex: 2;
+            margin: 0 5px;
+            height: 30px;
+
+            option {
+              font-size: 0.75em;
+            }
+          }
+
+          #search-button {
+            flex: 2;
+            margin: 0;
+            margin-top: -23px;
+
+            span {
+              margin-left: 5px;
+            }
+          }
+        }
       }
     }
   }

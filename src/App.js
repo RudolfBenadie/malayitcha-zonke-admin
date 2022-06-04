@@ -8,6 +8,7 @@ import BaseLayout from './layout/baseLayout';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import {
+  faArrowAltCircleRight,
   faTachometerAlt,
   faSearch,
   faBan,
@@ -38,6 +39,8 @@ import {
   faUserCog,
   faUserTag,
   faWrench,
+  faLocationArrow,
+  faSearchLocation,
 } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import ContactPage from './views/contactPage';
@@ -62,6 +65,7 @@ library.add(
   fab,
   far,
   faBan,
+  faArrowAltCircleRight,
   faEnvelope,
   faHourglassStart,
   faTachometerAlt,
@@ -74,6 +78,8 @@ library.add(
   faCoffee,
   faCross,
   faHome,
+  faLocationArrow,
+  faSearchLocation,
   faMoneyBillWaveAlt,
   faMoneyBillWave,
   faPencilAlt,

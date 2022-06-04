@@ -1,10 +1,17 @@
-import React from 'react'
-
+import React, { useRef } from 'react'
 import getStartedImage from '../assets/images/get-started.jpg';
-import { Button, Col, Row } from 'reactstrap';
+import { Button, Col, Form, FormGroup, FormText, Input, Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const HomePage = () => {
+  const originRef = useRef();
+  const sizeRef = useRef();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    alert('Not implemented yet.')
+  };
+
   return (
     <div id='home-page'>
       <div
@@ -14,6 +21,48 @@ const HomePage = () => {
         <div id='summary'><span>Malayicha gives you access to plenty of vehicles to fulfill your transportation requirements</span></div>
         <div id='quick-search-wrapper'>
           <div id='quick-search'>
+            <h5>Get started here:</h5>
+            <Form id='search-form' onSubmit={handleSearch}>
+              <FormGroup id='origin' >
+                <Input
+                  type='text'
+                  innerRef={originRef}
+                  className='search-control'
+                  autoComplete='off'
+                  placeholder='Depart from...'
+                ></Input>
+              </FormGroup>
+              <FormGroup id='type'>
+                <Input
+                  type='select'
+                  innerRef={sizeRef}
+                  className='search-control'
+                  autoComplete='off'
+                  placeholder='Size'
+                  defaultValue={null}
+                >
+                  <option>
+                    Up to 1 ton
+                  </option>
+                  <option>
+                    1-8 ton
+                  </option>
+                  <option>
+                    8-16 ton
+                  </option>
+                  <option>
+                    Over 16 ton
+                  </option>
+                </Input>
+              </FormGroup>
+              <FormGroup id="search-button" >
+                <FormText>&nbsp;</FormText>
+                <Button type='submit' className='w-100 search-control'>
+                  <FontAwesomeIcon icon='search-location'></FontAwesomeIcon>
+                  <span>GO</span>
+                </Button>
+              </FormGroup>
+            </Form>
           </div>
         </div>
       </div>
