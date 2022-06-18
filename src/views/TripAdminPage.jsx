@@ -55,20 +55,24 @@ const TripAdminPage = (props) => {
     let result = (trip.owner !== null && trip.owner !== undefined) &&
       (trip.vehicle !== null && trip.vehicle !== undefined) &&
       (trip.crew !== null && trip.crew !== undefined) &&
-      (trip.departFrom !== null && trip.departFrom !== undefined) &&
-      (trip.arriveAt !== null && trip.arriveAt !== undefined) &&
-      (trip.appointmentDate !== null && trip.appointmentDate !== undefined)
+      (trip.depart.description !== null && trip.depart.description !== undefined) &&
+      (trip.arrive.description !== null && trip.arrive.description !== undefined) &&
+      (trip.date !== null && trip.date !== undefined) &&
+      (trip.time !== null && trip.time !== undefined)
     return result;
   }
 
   const addTrip = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
+    const dateString = new Date(data.get('appointment-date')).toISOString();
     const tripData = {
       owner: data.get('trip-owner'),
-      departFrom: data.get('departure-place'),
-      arriveAt: data.get('arrival-place'),
-      appointmentDate: data.get('appointment-date'),
+      depart: { description: data.get('departure-place') },
+      arrive: { description: data.get('arrival-place') },
+      load: { description: 'Unknown load' },
+      date: dateString.substring(0, 10),
+      time: dateString.substring(11, dateString.length - 1),
       vehicle: data.get('trip-vehicle'),
       crew: data.get('trip-crew'),
     }
