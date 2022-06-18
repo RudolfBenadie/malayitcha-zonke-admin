@@ -115,28 +115,32 @@ const TripAdminPage = (props) => {
             </thead>
             <tbody>
               {
-                realtimeData.trips.map((trip, idx) =>
-                  <tr key={idx}>
-                    <td>{trip.appointmentDate}</td>
-                    <td>{trip.departFrom}</td>
-                    <td>{trip.arriveAt}</td>
-                    <td>{trip.vehicle}</td>
-                    <td>{trip.crew}</td>
-                    <td>
-                      <FontAwesomeIcon
-                        icon='hourglass-start'
-                        style={{ color: 'rgb(50, 255, 100)', marginRight: '5px', cursor: 'pointer' }}
-                        onClick={() => { startTrip(trip) }}
-                      />
-                    </td>
-                    <td style={{ textAlign: 'center' }}>
-                      <FontAwesomeIcon
-                        icon='ban'
-                        style={{ color: 'rgb(255, 50, 50)', marginRight: '5px', cursor: 'pointer' }}
-                        onClick={() => { cancelTrip(trip) }}
-                      />
-                    </td>
-                  </tr>
+                realtimeData.trips.map((trip, idx) => {
+                  console.log(trip);
+                  return (
+                    <tr key={idx}>
+                      <td>{`${trip.date} @ ${trip.time.substring(0, 5)}`}</td>
+                      <td>{trip.depart.description}</td>
+                      <td>{trip.arrive.description}</td>
+                      <td>{trip.vehicle}</td>
+                      <td>{trip.crew}</td>
+                      <td>
+                        <FontAwesomeIcon
+                          icon='hourglass-start'
+                          style={{ color: 'rgb(50, 255, 100)', marginRight: '5px', cursor: 'pointer' }}
+                          onClick={() => { startTrip(trip) }}
+                        />
+                      </td>
+                      <td style={{ textAlign: 'center' }}>
+                        <FontAwesomeIcon
+                          icon='ban'
+                          style={{ color: 'rgb(255, 50, 50)', marginRight: '5px', cursor: 'pointer' }}
+                          onClick={() => { cancelTrip(trip) }}
+                        />
+                      </td>
+                    </tr>
+                  )
+                }
                 )
               }
             </tbody>
@@ -182,14 +186,3 @@ const TripAdminPage = (props) => {
 };
 
 export default TripAdminPage;
-
-/*
-          <Typeahead
-            id='owner-list'
-            onChange={ownerChanged}
-            options={owners}
-            placeholder="Select a vehicle owner"
-          >
-          </Typeahead>
-
-*/
