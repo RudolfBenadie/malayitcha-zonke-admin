@@ -14,6 +14,7 @@ import {
   set,
   push,
   onValue,
+  query,
   get,
   remove,
 } from 'firebase/database';
@@ -49,6 +50,7 @@ export {
   push,
   set,
   onValue,
+  query,
   remove,
   // adminApp,
 };

@@ -39,7 +39,7 @@ const TripAdminPage = (props) => {
     setVehicleOptions(vOptions);
     const cOptions = realtimeData.crew.reduce((list, member) => {
       if (member[1].owner === owner.value) list.push({
-        label: `${member[0] == member[1].owner ? owner.label : member[1].name}`,
+        label: `${member[0] === member[1].owner ? owner.label : member[1].name}`,
         value: member[0],
       });
       return list;

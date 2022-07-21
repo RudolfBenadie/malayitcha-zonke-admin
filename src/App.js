@@ -60,6 +60,9 @@ import VehiclesPage from './views/VehiclesPage';
 import UserAdminPage from './views/UserAdminPage';
 import CrewAdminPage from './views/CrewAdminPage';
 import TripAdminPage from './views/TripAdminPage';
+import PaymentPage from './views/PaymentPage';
+import PaymentSuccessPage from './views/PaymentSuccessPage';
+import PaymentFailPage from './views/PaymentFailPage';
 
 library.add(
   fab,
@@ -105,6 +108,11 @@ function App() {
       <AuthProvider>
         <RealtimeDataProvider>
           <Routes key='app-routes'>
+            <Route
+              path='/mobilePaymentSuccess'
+              element={<PaymentSuccessPage />}
+            />
+            <Route path='/mobilePaymentFail' element={<PaymentFailPage />} />
             <Route element={<BaseLayout />}>
               <Route element={<PublicPages />}>
                 <Route path='/' element={<HomePage />} />
@@ -115,6 +123,12 @@ function App() {
                 <Route path='/reset-password' element={<ResetPasswordPage />} />
                 <Route path='/terms' element={<TermsPage />} />
                 <Route path='/trips' element={<TripsPage />} />
+                <Route
+                  path='/paymentSuccess'
+                  element={<PaymentSuccessPage />}
+                />
+                <Route path='/paymentFail' element={<PaymentFailPage />} />
+                <Route path='/payment' element={<PaymentPage />} />
                 <Route
                   path='/dashboard'
                   element={
