@@ -63,6 +63,7 @@ import TripAdminPage from './views/TripAdminPage';
 import PaymentPage from './views/PaymentPage';
 import PaymentSuccessPage from './views/PaymentSuccessPage';
 import PaymentFailPage from './views/PaymentFailPage';
+import PrivacyPolicy from './views/PrivacyPolicy';
 
 library.add(
   fab,
@@ -119,6 +120,7 @@ function App() {
                 <Route path='/about' element={<AboutPage />} />
                 <Route path='/contact' element={<ContactPage />} />
                 <Route path='/help' element={<HelpPage />} />
+                <Route path='/privacy-policy' element={<PrivacyPolicy />} />
                 <Route path='/login' element={<LoginPage />} />
                 <Route path='/reset-password' element={<ResetPasswordPage />} />
                 <Route path='/terms' element={<TermsPage />} />

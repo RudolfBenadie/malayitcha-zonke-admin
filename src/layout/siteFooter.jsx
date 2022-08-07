@@ -34,6 +34,9 @@ const SiteFooter = () => {
             <NavItem>
               <Link to='/terms'>Terms and conditions</Link>
             </NavItem>
+            <NavItem>
+              <Link to='/privacy-policy'>Privacy policy</Link>
+            </NavItem>
           </Nav>
         </div>
         <div className='footer-section spacer' />

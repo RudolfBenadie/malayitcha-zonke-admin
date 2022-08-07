@@ -2,6 +2,30 @@ html {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.flex-element {
+  display: flex;
+}
+
+.element-flex-1 {
+  flex: 1;
+}
+
+.element-flex-2 {
+  flex: 2;
+}
+
+.element-flex-3 {
+  flex: 3;
+}
+
+.element-flex-5 {
+  flex: 5;
+}
+
+.padded-vertical-5 {
+  padding: 5px 0;
+}
+
 .bold-heading {
   font-size: 5em;
   font-weight: 900;
